@@ -1,0 +1,122 @@
+---
+options:
+  verbose: no
+  output_dir: .
+  processes_per_experiment: 1
+
+  temperature: 298.15*kelvin
+  pressure: 1*atmosphere
+  constraints: HBonds
+  anisotropic_dispersion_cutoff: 16.0*angstroms
+
+  minimize: yes
+  number_of_iterations: null
+  nsteps_per_iteration: 500
+  timestep: 2*femtoseconds
+  checkpoint_interval: 50
+
+  annihilate_electrostatics: yes
+  annihilate_sterics: no
+
+  online_analysis_interval: 100
+  online_analysis_target_error: 0.5
+
+
+# Molecules
+# ---------
+
+oe_charges: &oe_charges
+  openeye:
+    quacpac: am1-bcc
+  antechamber:
+    charge_method: null
+
+molecules:
+  acd:
+    filepath: input/host-acd.mol2
+    antechamber:
+      charge_method: bcc
+  guest-acd:
+    filepath: input/guests-acd.mol2
+    select: all
+    <<: *oe_charges
+  bcd:
+    filepath: input/host-bcd.mol2
+    antechamber:
+      charge_method: bcc
+  guest-bcd:
+    filepath: input/guests-bcd.mol2
+    select: all
+    <<: *oe_charges
+
+
+# Solvents
+# --------
+
+common_PME: &common_PME
+  nonbonded_method: PME
+  clearance: 12*angstroms
+  nonbonded_cutoff: 11*angstroms
+  switch_distance: 10*angstroms
+  ewald_error_tolerance: 1.0e-4
+  positive_ion: Na+
+  negative_ion: Cl-
+  ionic_strength: 50*millimolar
+
+common_implicit: &common_implicit
+  nonbonded_method: NoCutoff
+  implicit_solvent_salt_conc: 50*millimolar
+
+solvents:
+  tip3p:
+    <<: *common_PME
+    solvent_model: tip3p
+    leap:
+      parameters: [leaprc.protein.ff14SB, leaprc.water.tip3p]
+  tip4pew:
+    <<: *common_PME
+    solvent_model: tip4pew
+    leap:
+      parameters: [leaprc.protein.ff14SB, leaprc.water.tip4pew]
+  OBC1:
+    <<: *common_implicit
+    implicit_solvent: OBC1
+  OBC2:
+    <<: *common_implicit
+    implicit_solvent: OBC2
+  GBn:
+    <<: *common_implicit
+    implicit_solvent: GBn
+
+
+# Experiments
+# -----------
+
+systems:
+  acd-system:
+    receptor: acd
+    ligand: guest-acd
+    solvent: !Combinatorial [tip3p, tip4pew, OBC1, OBC2, GBn]
+    leap:
+      parameters: [leaprc.gaff]
+  bcd-system:
+    receptor: bcd
+    ligand: guest-bcd
+    solvent: !Combinatorial [tip3p, tip4pew, OBC1, OBC2, GBn]
+    leap:
+      parameters: [leaprc.gaff]
+
+protocols:
+  binding-auto:
+    complex:
+      alchemical_path: auto
+    solvent:
+      alchemical_path: auto
+
+experiments:
+  system: !Combinatorial [acd-system, bcd-system]
+  protocol: binding-auto
+  restraint:
+    type: Harmonic
+    restrained_ligand_atoms: (resname MOL) and (name =~ 'C[0-9]+')
+    restrained_receptor_atoms: (resname MGO) and (name =~ 'C[0-9]+')
