@@ -1,2 +1,2 @@
-# yank-benchmark
-Standard benchmark set for YANK.
+# YANK benchmark
+Force field accuracy benchmark set for YANK.

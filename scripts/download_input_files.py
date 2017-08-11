@@ -6,7 +6,12 @@
 
 """Download from benchmarksets and prepare the input files for the calculations.
 
-Requires Python 3.
+Methods
+-------
+- ``prepare_cyclodextrin_files()``: download and prepare the cyclodextrin mol2
+files from benchmarksets.
+
+Requires Python 3 and OpenEye.
 
 """
 
@@ -62,7 +67,7 @@ def download_and_save_file(url, file_path, relative_url=True):
 def merge_mol2_files(input_file_paths, output_file_path):
     """Merge all the input mol2 files into a single multi-conformer file.
 
-    Requires OpenEye Toolkit.
+    Atom names are standardized. Requires OpenEye Toolkit.
 
     Parameters
     ----------
@@ -114,7 +119,14 @@ def merge_mol2_files(input_file_paths, output_file_path):
 # =============================================================================
 
 def prepare_cyclodextrin_files():
-    """Download the CD mol2 files and merge all guests in a single file."""
+    """Download the CD mol2 files and merge all guests in a single file.
+
+    The function download the alpha and beta cyclodextrin host and their
+    guests as mol2 files. The guest files of each host are merged into a
+    single multi-molecule mol2 file. The atom names are standardized with
+    OpenEye.
+
+    """
     input_file_dir_path = os.path.join('..', 'cyclodextrin', 'input')
 
     # Data to download all cyclodextrin molecules.
