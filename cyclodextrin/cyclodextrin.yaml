@@ -34,16 +34,14 @@ oe_charges: &oe_charges
 molecules:
   acd:
     filepath: input/host-acd.mol2
-    antechamber:
-      charge_method: bcc
+    <<: *oe_charges
   guest-acd:
     filepath: input/guests-acd.mol2
     select: all
     <<: *oe_charges
   bcd:
     filepath: input/host-bcd.mol2
-    antechamber:
-      charge_method: bcc
+    <<: *oe_charges
   guest-bcd:
     filepath: input/guests-bcd.mol2
     select: all
@@ -118,5 +116,5 @@ experiments:
   protocol: binding-auto
   restraint:
     type: Harmonic
-    restrained_ligand_atoms: (resname MOL) and (name =~ 'C[0-9]+')
-    restrained_receptor_atoms: (resname MGO) and (name =~ 'C[0-9]+')
+    restrained_ligand_atoms: (resname MOL) and (mass > 1.5)
+    restrained_receptor_atoms: (resname MGO) and (mass > 1.5)
