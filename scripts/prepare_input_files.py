@@ -235,7 +235,7 @@ def prepare_t4lysozyme_files():
 
     # File paths.
     t4lysozyme_dir_path = os.path.join('..', 't4lysozyme', 'input')
-    t4ligands_file_path = os.path.join(t4lysozyme_dir_path, 't4ligands.json')  # Input file.
+    t4ligands_file_path = os.path.join(t4lysozyme_dir_path, '..', 't4ligands.json')  # Input file.
 
     # Load all molecules to dock.
     with open(t4ligands_file_path, 'r') as f:
