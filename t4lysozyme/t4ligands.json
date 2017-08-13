@@ -1,0 +1,37 @@
+{
+  "l99a": {
+    "ligand-l99a-1": {"name": "benzene", "smiles": "c1ccccc1", "df_exp": -5.19, "df_exp_error": 0.16, },
+    "ligand-l99a-2": {"name": "toluene", "smiles": "Cc1ccccc1", "df_exp": -5.52, "df_exp_error": 0.04},
+    "ligand-l99a-3": {"name": "ethylbenzene", "smiles": "CCc1ccccc1", "df_exp": -5.76, "df_exp_error": 0.07},
+    "ligand-l99a-4": {"name": "propylbenzene", "smiles": "CCCc1ccccc1", "df_exp": -6.55, "df_exp_error": 0.02},
+    "ligand-l99a-5": {"name": "butylbenzene", "smiles": "CCCCc1ccccc1", "df_exp": -6.70, "df_exp_error": 0.02},
+    "ligand-l99a-6": {"name": "p-xylene", "smiles": "Cc1ccc(cc1)C", "df_exp": -4.67, "df_exp_error": 0.06},
+    "ligand-l99a-7": {"name": "benzofuran", "smiles": "c1ccc2c(c1)cco2", "df_exp": -5.46, "df_exp_error": 0.03},
+
+    "ligand-l99a-8": {"name": "4-ethyltoluene", "smiles": "CCc1ccc(C)cc1", "df_exp": -5.42, "df_exp_error": null},
+    "ligand-l99a-9": {"name": "isobutylbenzene", "smiles": "CC(C)Cc1ccccc1", "df_exp": -6.51, "df_exp_error": null},
+    "ligand-l99a-10": {"name": "2-ethyltoluene",  "smiles": "CCc1ccccc1C","df_exp": -4.56, "df_exp_error": null},
+    "ligand-l99a-11": {"name": "1,2-dichlorobenzene", "smiles": "C1=CC=C(C(=C1)Cl)Cl", "df_exp": -6.37,  "df_exp_error": null},
+    "ligand-l99a-12": {"name": "indene",  "smiles": "C1C=Cc2ccccc21", "df_exp": -5.13, "df_exp_error": null},
+    "ligand-l99a-13": {"name": "thianaphthene", "smiles": "c2cc1ccccc1s2", "df_exp": -5.71, "df_exp_error": null},
+    "ligand-l99a-14": {"name": "m-xylene",  "smiles": "Cc1cccc(c1)C", "df_exp": -4.75, "df_exp_error": null},
+    "ligand-l99a-15": {"name": "3-ethyltoluene",  "smiles": "CCc1cccc(C)c1", "df_exp": -5.12, "df_exp_error": null},
+    "ligand-l99a-16": {"name": "indole",  "smiles": "c2cc1ccccc1[nH]2", "df_exp": -4.89, "df_exp_error": null},
+    "ligand-l99a-17": {"name": "1-methylpyrrole", "smiles": "CN1C=CC=C1", "df_exp": -4.44, "df_exp_error": null},
+    "ligand-l99a-18": {"name": "o-xylene", "smiles": "Cc1ccccc1C", "df_exp": -4.60, "df_exp_error": null},
+    "ligand-l99a-19": {"name": "n-methylaniline", "smiles": "CNC1=CC=CC=C1", "df_exp": -4.70, "df_exp_error": null},
+    "ligand-l99a-20": {"name": "iodopentafluorobenzene", "smiles": "C1(=C(C(=C(C(=C1F)F)I)F)F)F", "df_exp": -4.45, "df_exp_error": null},
+    "ligand-l99a-21": {"name": "iodobenzene", "smiles": "Ic1ccccc1", "df_exp": -5.95, "df_exp_error": null}
+  },
+
+  "l99a-m102q": {
+    "ligand-l99a-m102q-1": {"name": "toluene", "smiles": "Cc1ccccc1", "df_exp": -4.93, "df_exp_error": null},
+    "ligand-l99a-m102q-2": {"name": "phenol", "smiles": "c1ccc(cc1)O", "df_exp": -5.24, "df_exp_error": null},
+    "ligand-l99a-m102q-3": {"name": "catechol", "smiles": "c1ccc(c(c1)O)O", "df_exp": -4.16, "df_exp_error": 0.03},
+    "ligand-l99a-m102q-4": {"name": "2-ethoxyphenol", "smiles": "CCOc1ccccc1O", "df_exp": -4.02, "df_exp_error": 0.03},
+    "ligand-l99a-m102q-5": {"name": "benzyl acetate", "smiles": "CC(=O)OCc1ccccc1", "df_exp": -4.48, "df_exp_error": 0.16},
+    "ligand-l99a-m102q-6": {"name": "4,5,6,7-tetrahydroindole", "smiles": "c1c[nH]c2c1CCCC2", "df_exp": -4.61, "df_exp_error": 0.09},
+    "ligand-l99a-m102q-7": {"name": "n-phenylglycinonitrile", "smiles": "c1ccccc1NCC#N", "df_exp": -5.52, "df_exp_error": 0.18},
+    "ligand-l99a-m102q-8": {"name": "3-chlorophenol", "smiles": "c1cc(cc(c1)Cl)O", "df_exp": -5.51, "df_exp_error": null}
+  }
+}

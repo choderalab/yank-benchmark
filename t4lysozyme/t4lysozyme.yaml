@@ -1,0 +1,117 @@
+---
+options:
+  verbose: no
+  output_dir: .
+  processes_per_experiment: 1
+
+  temperature: 298.15*kelvin
+  pressure: 1*atmosphere
+  constraints: HBonds
+  anisotropic_dispersion_cutoff: 16.0*angstroms
+
+  minimize: yes
+  number_of_iterations: null
+  nsteps_per_iteration: 500
+  timestep: 2*femtoseconds
+  checkpoint_interval: 50
+
+  annihilate_electrostatics: yes
+  annihilate_sterics: no
+
+  online_analysis_interval: 100
+  online_analysis_target_error: 0.5
+
+
+# Molecules
+# ---------
+
+oe_charges: &oe_charges
+  openeye:
+    quacpac: am1-bcc
+  antechamber:
+    charge_method: null
+
+molecules:
+  l99a:
+    filepath: input/l99a.mcce.pdb
+  ligands-l99a:
+    filepath: input/ligands-l99a.mol2
+    <<: *oe_charges
+  l99a-m102q:
+    filepath: input/l99a-m102q.mcce.pdb
+  ligands-l99a-m102q:
+    filepath: input/ligands-l99a-m102q.mol2
+    <<: *oe_charges
+
+
+# Solvents
+# --------
+
+common_PME: &common_PME
+  nonbonded_method: PME
+  clearance: 12*angstroms
+  nonbonded_cutoff: 11*angstroms
+  switch_distance: 10*angstroms
+  ewald_error_tolerance: 1.0e-4
+  positive_ion: Na+  # TODO check experimental conditions
+  negative_ion: Cl-  # TODO check experimental conditions
+  ionic_strength: 50*millimolar  # TODO check experimental conditions
+
+common_implicit: &common_implicit
+  nonbonded_method: NoCutoff
+  implicit_solvent_salt_conc: 50*millimolar  # TODO check experimental conditions
+
+solvents:
+  tip3p:
+    <<: *common_PME
+    solvent_model: tip3p
+    leap:
+      parameters: [leaprc.water.tip3p]
+  tip4pew:
+    <<: *common_PME
+    solvent_model: tip4pew
+    leap:
+      parameters: [leaprc.water.tip4pew]
+  OBC1:
+    <<: *common_implicit
+    implicit_solvent: OBC1
+  OBC2:
+    <<: *common_implicit
+    implicit_solvent: OBC2
+  GBn:
+    <<: *common_implicit
+    implicit_solvent: GBn
+
+
+# Experiments
+# -----------
+
+common_system: &common_system
+  solvent: !Combinatorial [tip3p, tip4pew, OBC1, OBC2, GBn]
+  leap:
+    parameters: [oldff/leaprc.ff99SBildn, leaprc.gaff]
+
+systems:
+  l99a-system:
+    receptor: l99a
+    ligand: ligands-l99a
+    <<: *common_system
+  l99a-m102q-system:
+    receptor: bcd
+    ligand: guest-bcd
+    <<: *common_system
+
+protocols:
+  binding-auto:
+    complex:
+      alchemical_path: auto
+    solvent:
+      alchemical_path: auto
+
+experiments:
+  system: !Combinatorial [l99a-system, l99a-m102q-system]
+  protocol: binding-auto
+  restraint:
+    type: Harmonic
+    # TODO select receptor atoms to restrain
+    restrained_ligand_atoms: (resname MOL) and (mass > 1.5)
