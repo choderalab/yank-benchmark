@@ -9,6 +9,16 @@
 
 ## References
 
-[1] David L. Mobley, Alan P. Graves, John D. Chodera, Andrea C. McReynolds, Brian K. Shoichet, and Ken A. Dill.
-Predicting absolute ligand binding free energies to a simple model site. J. Mol. Biol. 371:1118, 2007.
-[[DOI](http://dx.doi.org/10.1016/j.jmb.2007.06.002)]
+[1] Morton, A., Baase, W. A., & Matthews, B. W. (1995). Energetic origins of specificity of ligand binding in an
+interior nonpolar cavity of T4 lysozyme. Biochemistry, 34(27), 8564-8575 [[DOI](http://dx.doi.org/10.1021/bi00027a006)].
+[2] Wei, B. Q., Baase, W. A., Weaver, L. H., Matthews, B. W., & Shoichet, B. K. (2002). A model binding site for
+testing scoring functions in molecular docking. Journal of molecular biology, 322(2), 339-355 [[DOI](http://dx.doi.org/10.1016/S0022-2836(02)00777-5)].
+[3] Boyce, S. E., Mobley, D. L., Rocklin, G. J., Graves, A. P., Dill, K. A., & Shoichet, B. K. (2009). Predicting
+ligand binding affinity with alchemical free energy methods in a polar model binding site. Journal of molecular
+biology, 394(4), 747-763 [[DOI](http://dx.doi.org/10.1016/j.jmb.2009.09.049)].
+[4] Mobley, D. L., Graves, A. P., Chodera, J. D., McReynolds, A. C., Shoichet, B. K., & Dill, K. A. (2007). Predicting
+absolute ligand binding free energies to a simple model site. Journal of molecular biology, 371(4), 1118-1134
+[[DOI](http://dx.doi.org/10.1016/j.jmb.2007.06.002)].
+[5] Liu, L., Baase, W. A., & Matthews, B. W. (2009). Halogenated Benzenes Bound within a Non-polar Cavity in T4
+Lysozyme Provide Examples of I⋯ S and I⋯ Se Halogen-bonding. Journal of molecular biology, 385(2), 595-605
+[[DOI](ttp://dx.doi.org/10.1016/j.jmb.2008.10.086)].

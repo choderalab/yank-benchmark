@@ -42,6 +42,7 @@ from docking import create_receptor, dock_molecule
 
 # TODO change me when CD files in nieldev branch will be merged to master.
 CD_INPUT_FILES_URL = 'https://raw.githubusercontent.com/MobleyLab/benchmarksets/nieldev/input_files/'
+MCCE_PATH = '/home/andrrizzi/mcce'
 
 
 # =============================================================================
@@ -242,53 +243,57 @@ def prepare_t4lysozyme_files():
         t4ligands_set = json.load(f)
 
     # Benchmark sets. The name field is the key of t4ligands_set.
-    T4Set = namedtuple('T4Set', ['name', 'pdb_code', 'ligand_dsl'])
+    T4Set = namedtuple('T4Set', ['name', 'pdb_code', 'ligand_dsl', 'phs'])
     t4_sets = [
-        T4Set(name='l99a', pdb_code='181L', ligand_dsl='resname BNZ'),
-        T4Set(name='l99a-m102q', pdb_code='1LI2', ligand_dsl='resname IPH')
+        T4Set(name='l99a', pdb_code='181L', ligand_dsl='resname BNZ', phs=[5.5, 6.8, 5.45]),
+        T4Set(name='l99a-m102q', pdb_code='1LI2', ligand_dsl='resname IPH', phs=[6.8])
     ]
 
-    for name, pdb_code, ligand_dsl in t4_sets:
+    for name, pdb_code, ligand_dsl, phs in t4_sets:
         with tempfile.TemporaryDirectory() as tmp_dir:
-            # Temporary file paths.
-            crystal_pdb_file_path = os.path.join(tmp_dir, name + '.pdb')
-            pdbfixed_pdb_file_path = os.path.join(tmp_dir, name + '.pdbfixer.pdb')
+            docked_molecule_file_paths = []
+            for ph in phs:
+                full_name = name + str(ph).replace('.', '')
 
-            # Output file paths.
-            mcce_pdb_file_path = os.path.join(t4lysozyme_dir_path, name + '.mcce.pdb')
-            ligands_mol2_file_path = os.path.join(t4lysozyme_dir_path, 'ligands-' + name + '.mol2')
+                # Temporary file paths.
+                crystal_pdb_file_path = os.path.join(tmp_dir, full_name + '.pdb')
+                pdbfixed_pdb_file_path = os.path.join(tmp_dir, full_name + '.pdbfixer.pdb')
 
-            # Download crystal structure from RCSB.
-            pdb_traj = mdtraj.load_pdb('http://files.rcsb.org/view/' + pdb_code + '.pdb')
+                # Output file paths.
+                mcce_pdb_file_path = os.path.join(t4lysozyme_dir_path, full_name + '.mcce.pdb')
+                ligands_mol2_file_path = os.path.join(t4lysozyme_dir_path, 'ligands-' + full_name + '.mol2')
 
-            # Remove ligand and crystal waters to prepare for MCCE protonation.
-            pdb_traj.save(crystal_pdb_file_path)
-            pdbfix_protein(crystal_pdb_file_path, pdbfixed_pdb_file_path,
-                           find_missing_residues=False, keep_water=False, ph=None)
+                # Download crystal structure from RCSB.
+                pdb_traj = mdtraj.load_pdb('http://files.rcsb.org/view/' + pdb_code + '.pdb')
 
-            # Find protonation state MCCE. The reference experiments pH is 5.5.
-            protonatePDB(pdbfixed_pdb_file_path, outfile=mcce_pdb_file_path,
-                         pH=5.5, mccepath='/home/andrrizzi/mcce')
+                # Remove ligand and crystal waters to prepare for MCCE protonation.
+                pdb_traj.save(crystal_pdb_file_path)
+                pdbfix_protein(crystal_pdb_file_path, pdbfixed_pdb_file_path,
+                               find_missing_residues=False, keep_water=False, ph=None)
 
-            # Set the docking box center to the ligand centroid.
-            ligand_atoms = pdb_traj.topology.select(ligand_dsl)
-            ligand_positions = np.array(pdb_traj.openmm_positions(0) / unit.angstrom)[ligand_atoms]
-            box_center = np.mean(ligand_positions, axis=0)  # In angstroms.
+                # Find protonation state MCCE. The reference experiments pH is 5.5.
+                protonatePDB(pdbfixed_pdb_file_path, outfile=mcce_pdb_file_path,
+                             pH=5.5, mccepath=MCCE_PATH)
 
-            # Prepare receptor for docking.
-            box_docking = np.concatenate((box_center + docking_box_side/2,
-                                          box_center - docking_box_side/2))
-            receptor = create_receptor(mcce_pdb_file_path, box_docking)
+                # Set the docking box center to the ligand centroid.
+                ligand_atoms = pdb_traj.topology.select(ligand_dsl)
+                ligand_positions = np.array(pdb_traj.openmm_positions(0) / unit.angstrom)[ligand_atoms]
+                box_center = np.mean(ligand_positions, axis=0)  # In angstroms.
 
-            # Dock and store docked positions.
-            molecule_file_paths = []
-            for molecule_name, molecule_data in t4ligands_set[name].items():
-                molecule_file_paths.append(os.path.join(tmp_dir, molecule_name + '.mol2'))
-                docked_oemol = dock_molecule(receptor, molecule_data['smiles'])
-                moltools.openeye.molecule_to_mol2(docked_oemol, molecule_file_paths[-1], residue_name='MOL')
+                # Prepare receptor for docking.
+                box_docking = np.concatenate((box_center + docking_box_side/2,
+                                              box_center - docking_box_side/2))
+                receptor = create_receptor(mcce_pdb_file_path, box_docking)
+
+                # Dock and store docked positions.
+                for molecule_name, molecule_data in t4ligands_set[name].items():
+                    if molecule_data['pH'] == ph:
+                        docked_molecule_file_paths.append(os.path.join(tmp_dir, molecule_name + '.mol2'))
+                        docked_oemol = dock_molecule(receptor, molecule_data['smiles'])
+                        moltools.openeye.molecule_to_mol2(docked_oemol, docked_molecule_file_paths[-1], residue_name='MOL')
 
             # Merge docked positions into a multi-molecule mol2 file.
-            merge_mol2_files(molecule_file_paths, ligands_mol2_file_path)
+            merge_mol2_files(docked_molecule_file_paths, ligands_mol2_file_path)
 
 
 if __name__ == '__main__':
