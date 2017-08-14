@@ -272,6 +272,7 @@ def prepare_t4lysozyme_files():
                                find_missing_residues=False, keep_water=False, ph=None)
 
                 # Find protonation state MCCE. The reference experiments pH is 5.5.
+                print('Find protonation state of {}'.format(full_name))
                 protonatePDB(pdbfixed_pdb_file_path, outfile=mcce_pdb_file_path,
                              pH=5.5, mccepath=MCCE_PATH)
 
@@ -286,14 +287,15 @@ def prepare_t4lysozyme_files():
                 receptor = create_receptor(mcce_pdb_file_path, box_docking)
 
                 # Dock and store docked positions.
+                print('Docking ligands for {}'.format(full_name))
                 for molecule_name, molecule_data in t4ligands_set[name].items():
                     if molecule_data['pH'] == ph:
                         docked_molecule_file_paths.append(os.path.join(tmp_dir, molecule_name + '.mol2'))
                         docked_oemol = dock_molecule(receptor, molecule_data['smiles'])
                         moltools.openeye.molecule_to_mol2(docked_oemol, docked_molecule_file_paths[-1], residue_name='MOL')
 
-            # Merge docked positions into a multi-molecule mol2 file.
-            merge_mol2_files(docked_molecule_file_paths, ligands_mol2_file_path)
+                # Merge docked positions into a multi-molecule mol2 file.
+                merge_mol2_files(docked_molecule_file_paths, ligands_mol2_file_path)
 
 
 if __name__ == '__main__':
