@@ -4,7 +4,6 @@ options:
   output_dir: .
   processes_per_experiment: 1
 
-  temperature: 298.15*kelvin
   pressure: 1*atmosphere
   constraints: HBonds
   anisotropic_dispersion_cutoff: 16.0*angstroms
@@ -32,15 +31,28 @@ oe_charges: &oe_charges
     charge_method: null
 
 molecules:
-  l99a:
-    filepath: input/l99a.mcce.pdb
-  ligands-l99a:
-    filepath: input/ligands-l99a.mol2
+  l99a-55:
+    filepath: input/l99a-55.mcce.pdb
+  ligands-l99a-55:
+    filepath: input/ligands-l99a-55.mol2
     <<: *oe_charges
-  l99a-m102q:
-    filepath: input/l99a-m102q.mcce.pdb
-  ligands-l99a-m102q:
-    filepath: input/ligands-l99a-m102q.mol2
+
+  l99a-68:
+    filepath: input/l99a-68.mcce.pdb
+  ligands-l99a-68:
+    filepath: input/ligands-l99a-68.mol2
+    <<: *oe_charges
+
+  l99a-545:
+    filepath: input/l99a-545.mcce.pdb
+  ligands-l99a-545:
+    filepath: input/ligands-l99a-545.mol2
+    <<: *oe_charges
+
+  l99a-m102q-68:
+    filepath: input/l99a-m102q-68.mcce.pdb
+  ligands-l99a-m102q-68:
+    filepath: input/ligands-l99a-m102q-68.mol2
     <<: *oe_charges
 
 
@@ -53,13 +65,13 @@ common_PME: &common_PME
   nonbonded_cutoff: 11*angstroms
   switch_distance: 10*angstroms
   ewald_error_tolerance: 1.0e-4
-  positive_ion: Na+  # TODO check experimental conditions
-  negative_ion: Cl-  # TODO check experimental conditions
-  ionic_strength: 50*millimolar  # TODO check experimental conditions
+  positive_ion: Na+  # TODO we may need different solvents according to experimental conditions
+  negative_ion: Cl-  # TODO we may need different solvents according to experimental conditions
+  ionic_strength: 50*millimolar  # TODO we may need different solvents according to experimental conditions
 
 common_implicit: &common_implicit
   nonbonded_method: NoCutoff
-  implicit_solvent_salt_conc: 50*millimolar  # TODO check experimental conditions
+  implicit_solvent_salt_conc: 50*millimolar  # TODO we may need different solvents according to experimental conditions
 
 solvents:
   tip3p:
@@ -92,13 +104,21 @@ common_system: &common_system
     parameters: [oldff/leaprc.ff99SBildn, leaprc.gaff]
 
 systems:
-  l99a-system:
-    receptor: l99a
-    ligand: ligands-l99a
+  l99a-55-system:
+    receptor: l99a-55
+    ligand: ligands-l99a-55
     <<: *common_system
-  l99a-m102q-system:
-    receptor: bcd
-    ligand: guest-bcd
+  l99a-68-system:
+    receptor: l99a-68
+    ligand: ligands-l99a-68
+    <<: *common_system
+  l99a-545-system:
+    receptor: l99a-545
+    ligand: ligands-l99a-545
+    <<: *common_system
+  l99a-m102q-68-system:
+    receptor: l99a-m102q-68
+    ligand: ligands-l99a-m102q-68
     <<: *common_system
 
 protocols:
@@ -108,10 +128,29 @@ protocols:
     solvent:
       alchemical_path: auto
 
-experiments:
-  system: !Combinatorial [l99a-system, l99a-m102q-system]
+common_experiment: &common_experiment
   protocol: binding-auto
   restraint:
     type: Harmonic
-    # TODO select receptor atoms to restrain
     restrained_ligand_atoms: (resname MOL) and (mass > 1.5)
+    restrained_receptor_atoms: (resi 77 or resi 83 or resi 86 or resi 87 or resi 90 or resi 98 or resi 101 or resi 102 or resi 110 or resi 117 or resi 120 or resi 152) and (mass > 1.5)  # TODO double-check this
+
+experiment-t302:
+  system: l99a-55-system
+  options:
+    temperature: 302.0*kelvin
+  <<: *common_experiment
+
+experiment-t283:
+  system: !Combinatorial [l99a-68-system, l99a-m102q-68-system]
+  options:
+    temperature: 283.0*kelvin
+  <<: *common_experiment
+
+experiment-t276:
+  system: l99a-545-system
+  options:
+    temperature: 276.0*kelvin
+  <<: *common_experiment
+
+experiments: [experiment-t302, experiment-t283, experiment-t276]
