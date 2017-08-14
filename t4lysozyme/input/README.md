@@ -6,7 +6,9 @@ up-to-date description of the procedure.
 
 ## Manifest
 
-- `l99a.mcce.pdb`: T4 Lysozyme L99A in the `181L.pdb` configuration with protonation state assigned by MCCE.
-- `ligands-l99a.mol2`: the T4 L99A ligands generated from SMILES string with OpenEye AM1-BCC charges.
-- `l99a-m102q.mcce.pdb`: T4 Lysozyme L99A/M102Q in the `1LI2.pdb` configuration with protonation state assigned by MCCE.
-- `ligands-l99a-m102q.mol2`: the T4 L99A/M102Q ligands generated from SMILES string with OpenEye AM1-BCC charges.
+- `l99a-X.mcce.pdb`: T4 Lysozyme L99A in the `181L.pdb` configuration with protonation state assigned by MCCE at pH `X`.
+- `ligands-l99a-X.mol2`: ligands generated from SMILES string with OpenEye AM1-BCC charges that binds T4 L99A at pH `X`.
+- `l99a-m102q-X.mcce.pdb`: T4 Lysozyme L99A/M102Q in the `1LI2.pdb` configuration with protonation state assigned by
+MCCE at pH `X`.
+- `ligands-l99a-m102q-X.mol2`: ligands generated from SMILES string with OpenEye AM1-BCC charges that binds T4 L99A/M102Q
+at pH `X`.
