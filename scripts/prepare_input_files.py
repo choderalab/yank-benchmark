@@ -253,7 +253,7 @@ def prepare_t4lysozyme_files():
         with tempfile.TemporaryDirectory() as tmp_dir:
             docked_molecule_file_paths = []
             for ph in phs:
-                full_name = name + str(ph).replace('.', '')
+                full_name = name + '-' + str(ph).replace('.', '')
 
                 # Temporary file paths.
                 crystal_pdb_file_path = os.path.join(tmp_dir, full_name + '.pdb')
