@@ -236,7 +236,7 @@ def prepare_t4lysozyme_files():
 
     # File paths.
     t4lysozyme_dir_path = os.path.join('..', 't4lysozyme', 'input')
-    t4ligands_file_path = os.path.join(t4lysozyme_dir_path, '..', 't4ligands.json')  # Input file.
+    t4ligands_file_path = os.path.join('..', 't4lysozyme', 't4ligands.json')  # Input file.
 
     # Load all molecules to dock.
     with open(t4ligands_file_path, 'r') as f:
@@ -249,19 +249,17 @@ def prepare_t4lysozyme_files():
         T4Set(name='l99a-m102q', pdb_code='1LI2', ligand_dsl='resname IPH', phs=[6.8])
     ]
 
-    for name, pdb_code, ligand_dsl, phs in t4_sets:
+    for t4_name, pdb_code, ligand_dsl, phs in t4_sets:
         with tempfile.TemporaryDirectory() as tmp_dir:
-            docked_molecule_file_paths = []
             for ph in phs:
-                full_name = name + '-' + str(ph).replace('.', '')
+                full_name = t4_name + '-' + str(ph).replace('.', '')
 
                 # Temporary file paths.
                 crystal_pdb_file_path = os.path.join(tmp_dir, full_name + '.pdb')
                 pdbfixed_pdb_file_path = os.path.join(tmp_dir, full_name + '.pdbfixer.pdb')
 
-                # Output file paths.
+                # Output file path for MCCE.
                 mcce_pdb_file_path = os.path.join(t4lysozyme_dir_path, full_name + '.mcce.pdb')
-                ligands_mol2_file_path = os.path.join(t4lysozyme_dir_path, 'ligands-' + full_name + '.mol2')
 
                 # Download crystal structure from RCSB.
                 pdb_traj = mdtraj.load_pdb('http://files.rcsb.org/view/' + pdb_code + '.pdb')
@@ -288,14 +286,32 @@ def prepare_t4lysozyme_files():
 
                 # Dock and store docked positions.
                 print('Docking ligands for {}'.format(full_name))
-                for molecule_name, molecule_data in t4ligands_set[name].items():
+                docked_molecule_file_paths = {}
+                for molecule_name, molecule_data in t4ligands_set[t4_name].items():
                     if molecule_data['pH'] == ph:
-                        docked_molecule_file_paths.append(os.path.join(tmp_dir, molecule_name + '.mol2'))
+                        docked_molecule_file_path = os.path.join(tmp_dir, molecule_name + '.mol2')
                         docked_oemol = dock_molecule(receptor, molecule_data['smiles'])
-                        moltools.openeye.molecule_to_mol2(docked_oemol, docked_molecule_file_paths[-1], residue_name='MOL')
+                        moltools.openeye.molecule_to_mol2(docked_oemol, docked_molecule_file_path, residue_name='MOL')
+
+                        # Be sure to keep ligands that were assayed in different buffers separated.
+                        # We also isolate the numeric part of the ligand id to name the output file.
+                        reference_doi = molecule_data['doi']
+                        molecule_idx = int(molecule_name.split('-')[-1])
+                        try:
+                            docked_molecule_file_paths[reference_doi][0].append(molecule_idx)
+                            docked_molecule_file_paths[reference_doi][1].append(docked_molecule_file_path)
+                        except KeyError:
+                            docked_molecule_file_paths[reference_doi] = [[molecule_idx],
+                                                                         [docked_molecule_file_path]]
 
                 # Merge docked positions into a multi-molecule mol2 file.
-                merge_mol2_files(docked_molecule_file_paths, ligands_mol2_file_path)
+                for reference_doi, (molecule_indices, file_paths) in docked_molecule_file_paths.items():
+                    # Determine output file name.
+                    suffix = '{}-{}'.format(min(molecule_indices), max(molecule_indices))
+                    ligands_mol2_file_name = 'ligands-{}-{}.mol2'.format(t4_name, suffix)
+                    ligands_mol2_file_path = os.path.join(t4lysozyme_dir_path, ligands_mol2_file_name)
+                    # Merge docked molecules into a single mol2 file.
+                    merge_mol2_files(file_paths, ligands_mol2_file_path)
 
 
 if __name__ == '__main__':
