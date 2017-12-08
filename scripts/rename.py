@@ -80,7 +80,7 @@ def rename_standard_hydrogens(npdb):
     # Convert all other hydrogen names.
     conversions_by_atom = {
         ('1HA ', '3HA '): frozenset(['GLY']),
-        ('1HB ', '3HB '): frozenset(['ARG', 'ASN', 'ASP', 'GLN', 'GLU', 'HIS', 'LEU',
+        ('1HB ', '3HB '): frozenset(['ARG', 'ASN', 'ASP', 'CYS', 'GLN', 'GLU', 'HIS', 'LEU',
                                      'LYS', 'MET', 'PHE', 'PRO', 'SER', 'TRP', 'TYR']),
         ('1HD ', '3HD '): frozenset(['ARG', 'LYS', 'PRO']),
         ('1HE ', '3HE '): frozenset(['LYS']),
