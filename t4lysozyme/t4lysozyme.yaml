@@ -59,7 +59,7 @@ molecules:
     select: all
     <<: *oe_charges
   ligands-l99a-m102q-4-8:
-    filepath: input/ligands-l99a-m102q-1-3.mol2
+    filepath: input/ligands-l99a-m102q-4-8.mol2
     select: all
     <<: *oe_charges
 
