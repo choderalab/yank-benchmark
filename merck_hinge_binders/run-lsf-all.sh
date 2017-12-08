@@ -6,7 +6,7 @@
 #BSUB -o  c-met-hinge-neutral.%J.log
 #
 # Specify node group
-#BSUB -m ls-gpu lt-gpu
+#BSUB -m "ls-gpu lt-gpu"
 #BSUB -q gpuqueue
 #
 # nodes: number of nodes and GPU request

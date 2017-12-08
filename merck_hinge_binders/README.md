@@ -2,16 +2,27 @@
 
 This data set is a set of hinge ligands for the c-Met kinase binding in explicit solvent
 
-This is currently a crude first pass which has not been fully debugged and will 
-likely need refinement
+This set can be found from the following paper:
+
+```
+Dorsch, D., Schadt, O., Stieber, F., Meyring, M., Grädler, U., Bladt, F., 
+Friese-Hamima, M, Knühla, C., Pehla, U., and Blaukat, A. (2015). 
+Identification and optimization of pyridazinones as potent and selective c-Met kinase inhibitors. 
+Bioorganic & Medicinal Chemistry Letters, 25(7), 1597–1602. 
+https://doi.org/10.1016/j.bmcl.2015.02.002
+
+```
+
 
 ## Manifest
 
 * `input/c-Met_bmcl_neutral_docked.sdf`: Docked ligand structures  
 * `input/met_4r1y_mae_prot.pdb`: c-Met protein used for the neutral set 
 * `input/4r1y_pocket_resSeq.npy`: List of residue numbers in the PDB who have atoms within 4.5 A of the docked Ligands. 
-   Used to target the centroid of the receptor for harmonic restraints since the pocket is not near the receptor
+   Used to target the centroid of the receptor for harmonic restraints since the pocket is not near the receptor 
    centroid. This is stored as a NumPy array, use `numpy.load()` to access it.
+   * IMPORTANT: This list only has Residue Numbers as they appear in the PDB file
+   * To get the correct residue ID's in absolute index, run the file in `input/list_sequences.py`
 * `explicit-all.yaml`: YAML file to run the ligands in the SDF file
 * `run-slurm-all.sh`: SLURM script to run the YAML file for all ligands (Merck KGaA GTX1080 Cluster)
 * `run-lsf-all.sh`: LSF script to run the YAML file for all ligands (MSKCC *Lilac* Cluster)

@@ -7,7 +7,7 @@ options:
   temperature: 300*kelvin
   pressure: 1*atmosphere
   timestep: 2*femtoseconds
-  switch_experiment_interval: 500
+  switch_experiment_interval: 100
   resume_setup: yes
   resume_simulation: yes
 
@@ -54,4 +54,4 @@ experiments:
   protocol: absolute-binding
   restraint:
     type: Harmonic
-    restrained_receptor_atoms: (residue 1083 or residue 1084 or residue 1085 or residue 1092 or residue 1108 or residue 1110 or residue 1140 or residue 1157 or residue 1158 or residue 1159 or residue 1160 or residue 1161 or residue 1162 or residue 1163 or residue 1164 or residue 1166 or residue 1167 or residue 1208 or residue 1209 or residue 1210 or residue 1211 or residue 1221 or residue 1222 or residue 1223 or residue 1226 or residue 1230 or residue 1231) and (mass > 1.5)
+    restrained_receptor_atoms: (resid 21 or resid 22 or resid 23 or resid 30 or resid 46 or resid 48 or resid 78 or resid 95 or resid 96 or resid 97 or resid 98 or resid 99 or resid 100 or resid 101 or resid 102 or resid 104 or resid 105 or resid 146 or resid 147 or resid 148 or resid 149 or resid 159 or resid 160 or resid 161 or resid 164 or resid 168 or resid 169) and (mass > 1.5)
