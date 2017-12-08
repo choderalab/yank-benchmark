@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-'''
+"""
 Populate the directories to run the neutral ligands individually
-'''
+"""
 
 import openeye.oechem as oechem
 import os
@@ -12,8 +12,8 @@ with open('explicit-skel.yaml', 'r') as f:
     raw_yaml = f.read()
 with open('run-slurm-skel.sh', 'r') as f:
     raw_slurm  = f.read()
-pocket = np.load('4r1y_pocket_resSeq.npy')
-ligands = 'c-Met_bmcl_neutral_docked.sdf'
+pocket = np.load('../input/4r1y_pocket_resSeq.npy')
+ligands = '../input/c-Met_bmcl_neutral_docked.sdf'
 ifs = oechem.oemolistream(ligands)
 for i, mol in enumerate(ifs.GetOEGraphMols()):
     replaced_select = raw_yaml.replace('REPLACE_SELECT', str(i))

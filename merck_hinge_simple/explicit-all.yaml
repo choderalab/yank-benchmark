@@ -1,0 +1,57 @@
+options:
+  minimize: yes
+  verbose: yes
+  output_dir: explicit-all
+  number_of_iterations: 3000
+  nsteps_per_iteration: 500
+  temperature: 300*kelvin
+  pressure: 1*atmosphere
+  timestep: 2*femtoseconds
+  switch_experiment_interval: 500
+  resume_setup: yes
+  resume_simulation: yes
+
+molecules:
+  c-Met-4r1y:
+    filepath: input/met_4r1y_mae_prot.pdb
+    strip_protons: yes 
+  single-hinge:
+    filepath: input/c-Met_bmcl_neutral_docked.sdf
+    select: all
+    openeye:
+      quacpac: am1-bcc
+    antechamber:
+      charge_method: null
+
+solvents:
+  pme:
+    nonbonded_method: PME
+    switch_distance: 11*angstroms
+    nonbonded_cutoff: 12*angstroms
+    ewald_error_tolerance: 1.0e-4
+    clearance: 9*angstroms
+    positive_ion: Na+
+    negative_ion: Cl-
+    solvent_model: tip4pew
+
+systems:
+  c-met-hinge:
+    receptor: c-Met-4r1y
+    ligand: single-hinge
+    solvent: pme
+    leap:
+      parameters: [leaprc.protein.ff14SB, leaprc.gaff2, leaprc.water.tip4pew]
+
+protocols:
+  absolute-binding:
+    complex:
+      alchemical_path: auto
+    solvent:
+      alchemical_path: auto
+
+experiments:
+  system: c-met-hinge
+  protocol: absolute-binding
+  restraint:
+    type: Harmonic
+    restrained_receptor_atoms: (residue 1083 or residue 1084 or residue 1085 or residue 1092 or residue 1108 or residue 1110 or residue 1140 or residue 1157 or residue 1158 or residue 1159 or residue 1160 or residue 1161 or residue 1162 or residue 1163 or residue 1164 or residue 1166 or residue 1167 or residue 1208 or residue 1209 or residue 1210 or residue 1211 or residue 1221 or residue 1222 or residue 1223 or residue 1226 or residue 1230 or residue 1231) and (mass > 1.5)

@@ -12,10 +12,10 @@ options:
 
 molecules:
   c-Met-4r1y:
-    filepath: ../met_4r1y_mae_prot.pdb
+    filepath: ../../input/met_4r1y_mae_prot.pdb
     strip_protons: yes 
   single-hinge:
-    filepath: ../c-Met_bmcl_neutral_docked.sdf
+    filepath: ../../c-Met_bmcl_neutral_docked.sdf
     select: REPLACE_SELECT
     openeye:
       quacpac: am1-bcc
