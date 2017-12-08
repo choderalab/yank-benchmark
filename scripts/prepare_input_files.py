@@ -40,8 +40,7 @@ from docking import create_receptor, dock_molecule
 # CONSTANTS
 # =============================================================================
 
-# TODO change me when CD files in nieldev branch will be merged to master.
-CD_INPUT_FILES_URL = 'https://raw.githubusercontent.com/MobleyLab/benchmarksets/nieldev/input_files/'
+CD_INPUT_FILES_URL = 'https://raw.githubusercontent.com/MobleyLab/benchmarksets/master/input_files/'
 MCCE_PATH = '/home/andrrizzi/mcce'
 
 
@@ -237,6 +236,9 @@ def prepare_t4lysozyme_files():
     # File paths.
     t4lysozyme_dir_path = os.path.join('..', 't4lysozyme', 'input')
     t4ligands_file_path = os.path.join('..', 't4lysozyme', 't4ligands.json')  # Input file.
+
+    # Create output folder if it doesn't exist.
+    os.makedirs(t4lysozyme_dir_path, exist_ok=True)
 
     # Load all molecules to dock.
     with open(t4ligands_file_path, 'r') as f:

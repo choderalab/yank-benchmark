@@ -343,14 +343,8 @@ def renumber_atoms(pdbarr):
         pdbarr[i]=pdbarr[i][0:6]+str(i+1).rjust(5)+pdbarr[i][11:]        
 
 
-def protonation_state(pdbfile, pH, mccepath, cleanup=True, prmfile=None, labeledPDBOnly=False, renameTermini=True, xtraprms={}, manualProtonation={}, terminology = 'AMBER'):
-    """Performs a pH titration on all titratable residues in a PDB file.
-
-New optional argument:
-terminology         default 'AMBER', which protonates residues using naming recognized by AMBER and the ffamber ports for GROMACS from the Sorin lab. 
-                    Optionally, specify 'gAMBER' for the GROMACS AMBER format, which has some slightly different residue naming conventions 
-                    (for example, LYP -> LYS, LYS -> LYN, and CYN -> CYS, CYS2 -> CYM )
-"""
+def protonation_state(pdbfile, pH, mccepath, cleanup=True, prmfile=None, labeledPDBOnly=False, renameTermini=True, xtraprms={}, manualProtonation={}):
+    """Performs a pH titration on all titratable residues in a PDB file."""
     
     #Convert PDB file name to path, as paramgen expects an absolute path
     pdbpath=os.path.join(os.getcwd(),pdbfile)
@@ -378,7 +372,7 @@ terminology         default 'AMBER', which protonates residues using naming reco
     # chdir back to where we came from
     os.chdir(thisdir)
 
-    pdbarr = ps_processmcce(tempdir, labeledPDBOnly=labeledPDBOnly, renameTermini=renameTermini, manualProtonation=manualProtonation, terminology = terminology )
+    pdbarr = ps_processmcce(tempdir, labeledPDBOnly=labeledPDBOnly, renameTermini=renameTermini, manualProtonation=manualProtonation)
     print(pdbarr)
 
     # Generate a breakpoint for interactive testing...
@@ -456,7 +450,7 @@ def titrate(pdbfile, pHstart, pHstep, pHiters, mccepath, cleanup=True, prmfile=N
         
     return pdbarr
 
-def protonatePDB(pdbfile, outfile, pH, mccepath, cleanup=True, prmfile=None, labeledPDBOnly=False, renameTermini=True, xtraprms={}, manualProtonation={}, terminology = 'AMBER'):
+def protonatePDB(pdbfile, outfile, pH, mccepath, cleanup=True, prmfile=None, labeledPDBOnly=False, renameTermini=True, xtraprms={}, manualProtonation={}):
     """Determine the most likely protonation state for a given protein structure and writes it out using AMBER residue naming terminology.
 
     REQUIRED ARGUMENTS
@@ -475,16 +469,13 @@ def protonatePDB(pdbfile, outfile, pH, mccepath, cleanup=True, prmfile=None, lab
                           These are specified as a dictionary, e.g.: {82:'+', 87:'0',43:'-'} (residue number:protonation state)
                           Note that MCCE considers protonation state of residues independently, 
                           so one should think carefully whether this option affects protonation state of surrounding residues.
-        terminology       default 'AMBER', which protonates residues using naming recognized by AMBER and the ffamber ports for GROMACS from the Sorin lab. 
-                          Optionally, specify 'gAMBER' for the GROMACS AMBER format, which has some slightly different residue naming conventions 
-                          (for example, LYP -> LYS, LYS -> LYN, and CYN -> CYS, CYS2 -> CYM )
     """
 
     # Store current working directory.
     thisdir = os.getcwd()
     
     # Determine most likely protonation state, storing result in 'pdbarr'.
-    pdbarr = protonation_state(pdbfile,pH,mccepath,cleanup=cleanup, prmfile=prmfile, labeledPDBOnly=labeledPDBOnly, renameTermini=renameTermini, xtraprms=xtraprms, manualProtonation=manualProtonation, terminology = terminology)
+    pdbarr = protonation_state(pdbfile,pH,mccepath,cleanup=cleanup, prmfile=prmfile, labeledPDBOnly=labeledPDBOnly, renameTermini=renameTermini, xtraprms=xtraprms, manualProtonation=manualProtonation)
     
     # Write PDB file name to absolute path
     outpath=os.path.join(thisdir,outfile)
@@ -528,17 +519,12 @@ def titratePDB(pdbfile, outfile, pHstart, pHstep, pHiters, mccepath, cleanup=Tru
         
     return
 
-def ps_processmcce(tempdir, labeledPDBOnly=False, renameTermini=True, manualProtonation={}, verbose = False, terminology = 'AMBER'):
+def ps_processmcce(tempdir, labeledPDBOnly=False, renameTermini=True, manualProtonation={}, verbose = False):
     """Handles the file processing work for protonation_state
     
     ARGUMENTS
         tempdir - the temporary directory to run MCCE in.
 
-    OPTIONAL ARGUMENTS
-    (incomplete list)
-        terminology       default 'AMBER', which protonates residues using naming recognized by AMBER and the ffamber ports for GROMACS from the Sorin lab. 
-                          Optionally, specify 'gAMBER' for the GROMACS AMBER format, which has some slightly different residue naming conventions 
-                          (for example, LYP -> LYS, LYS -> LYN, and CYN -> CYS, CYS2 -> CYM )
     """
 
     # Build and use a regex to grab the appropriate entries from the MCCE PDB
@@ -574,7 +560,7 @@ def ps_processmcce(tempdir, labeledPDBOnly=False, renameTermini=True, manualProt
     if labeledPDBOnly:
         return pdbarr
     else:
-        pdbarr=rename.rename_residues(pdbarr, renameTermini=renameTermini, terminology = terminology)
+        pdbarr=rename.rename_residues(pdbarr, renameTermini=renameTermini)
         pdbarr=rename.pdb_cleanup(pdbarr) 
         return pdbarr
 
