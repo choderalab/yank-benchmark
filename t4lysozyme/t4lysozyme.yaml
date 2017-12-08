@@ -8,10 +8,10 @@ options:
   anisotropic_dispersion_cutoff: auto
 
   minimize: yes
-  number_of_iterations: 2000
+  number_of_iterations: 5000
   nsteps_per_iteration: 500
   timestep: 2*femtoseconds
-  checkpoint_interval: 50
+  checkpoint_interval: 1000
 
   annihilate_electrostatics: yes
   annihilate_sterics: no
@@ -31,31 +31,36 @@ molecules:
     filepath: input/l99a-55.mcce.pdb
   ligands-l99a-1-16:
     filepath: input/ligands-l99a-1-16.mol2
+    select: all
     <<: *oe_charges
   ligands-l99a-flatbottom:
     filepath: input/ligands-l99a-1-16.mol2
-    select: !Combinatorial[4, 5]  # butylbenzene, p-xylene
+    select: !Combinatorial [4, 5]  # butylbenzene, p-xylene
     <<: *oe_charges
 
   l99a-68:
     filepath: input/l99a-68.mcce.pdb
   ligands-l99a-17-19:
     filepath: input/ligands-l99a-17-19.mol2
+    select: all
     <<: *oe_charges
 
   l99a-545:
     filepath: input/l99a-545.mcce.pdb
   ligands-l99a-20-21:
     filepath: input/ligands-l99a-20-21.mol2
+    select: all
     <<: *oe_charges
 
   l99a-m102q-68:
     filepath: input/l99a-m102q-68.mcce.pdb
   ligands-l99a-m102q-1-3:
     filepath: input/ligands-l99a-m102q-1-3.mol2
+    select: all
     <<: *oe_charges
   ligands-l99a-m102q-4-8:
     filepath: input/ligands-l99a-m102q-1-3.mol2
+    select: all
     <<: *oe_charges
 
 
@@ -116,7 +121,7 @@ implicit_50mM_potassium_phosphate: &implicit_50mM_potassium_phosphate
 
 
 solvents:
-  tip3p_50mM_acetate_55
+  tip3p_50mM_acetate_55:
     <<: *common_tip3p
     <<: *explicit_50mM_acetate_55
   tip3p_50mM_acetate_545:
@@ -129,7 +134,7 @@ solvents:
     <<: *common_tip3p
     <<: *explicit_50mM_potassium_phosphate
 
-  tip4pew_50mM_acetate_55
+  tip4pew_50mM_acetate_55:
     <<: *common_tip4pew
     <<: *explicit_50mM_acetate_55
   tip4pew_50mM_acetate_545:
@@ -142,7 +147,7 @@ solvents:
     <<: *common_tip4pew
     <<: *explicit_50mM_potassium_phosphate
 
-  OBC1_50mM_acetate_55
+  OBC1_50mM_acetate_55:
     <<: *implicit_50mM_acetate_55
     implicit_solvent: OBC1
   OBC1_50mM_acetate_545:
@@ -155,7 +160,7 @@ solvents:
     <<: *implicit_50mM_potassium_phosphate
     implicit_solvent: OBC1
 
-  OBC2_50mM_acetate_55
+  OBC2_50mM_acetate_55:
     <<: *implicit_50mM_acetate_55
     implicit_solvent: OBC2
   OBC2_50mM_acetate_545:
@@ -168,7 +173,7 @@ solvents:
     <<: *implicit_50mM_potassium_phosphate
     implicit_solvent: OBC2
 
-  GBn_50mM_acetate_55
+  GBn_50mM_acetate_55:
     <<: *implicit_50mM_acetate_55
     implicit_solvent: GBn
   GBn_50mM_acetate_545:
@@ -187,7 +192,7 @@ solvents:
 
 common_system: &common_system
   leap:
-    parameters: [leaprc.ff14SB, leaprc.gaff]
+    parameters: [leaprc.protein.ff14SB, leaprc.gaff]
 
 systems:
   l99a-flatbottom-system:
@@ -252,7 +257,7 @@ experiment-t302:
   <<: *common_experiment
 
 experiment-t283:
-  system: !Combinatorial [l99a-68-system, l99a-m102q-68-system]
+  system: !Combinatorial [l99a-68-system, l99a-m102q-sodium-system, l99a-m102q-potassium-system]
   options:
     temperature: 283.15*kelvin
   <<: *common_experiment
