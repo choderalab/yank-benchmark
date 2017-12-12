@@ -1,0 +1,57 @@
+options:
+  minimize: yes
+  verbose: yes
+  output_dir: explicit-all
+  number_of_iterations: 3000
+  nsteps_per_iteration: 500
+  temperature: 300*kelvin
+  pressure: 1*atmosphere
+  timestep: 2*femtoseconds
+  switch_experiment_interval: 100
+  resume_setup: yes
+  resume_simulation: yes
+
+molecules:
+  c-Met-4r1y:
+    filepath: input/met_4r1y_mae_prot.pdb
+    strip_protons: yes 
+  single-hinge:
+    filepath: input/c-Met_bmcl_neutral_docked.sdf
+    select: all
+    openeye:
+      quacpac: am1-bcc
+    antechamber:
+      charge_method: null
+
+solvents:
+  pme:
+    nonbonded_method: PME
+    switch_distance: 11*angstroms
+    nonbonded_cutoff: 12*angstroms
+    ewald_error_tolerance: 1.0e-4
+    clearance: 9*angstroms
+    positive_ion: Na+
+    negative_ion: Cl-
+    solvent_model: tip4pew
+
+systems:
+  c-met-hinge:
+    receptor: c-Met-4r1y
+    ligand: single-hinge
+    solvent: pme
+    leap:
+      parameters: [leaprc.protein.ff14SB, leaprc.gaff2, leaprc.water.tip4pew]
+
+protocols:
+  absolute-binding:
+    complex:
+      alchemical_path: auto
+    solvent:
+      alchemical_path: auto
+
+experiments:
+  system: c-met-hinge
+  protocol: absolute-binding
+  restraint:
+    type: Harmonic
+    restrained_receptor_atoms: (resid 21 or resid 22 or resid 23 or resid 30 or resid 46 or resid 48 or resid 78 or resid 95 or resid 96 or resid 97 or resid 98 or resid 99 or resid 100 or resid 101 or resid 102 or resid 104 or resid 105 or resid 146 or resid 147 or resid 148 or resid 149 or resid 159 or resid 160 or resid 161 or resid 164 or resid 168 or resid 169) and (mass > 1.5)
