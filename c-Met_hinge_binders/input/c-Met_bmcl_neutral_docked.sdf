@@ -96,15 +96,6 @@ CHEMBL3402755_4200
  28 44  1  0  0  0
  29 45  1  0  0  0
 M  END
-> <s_m_entry_id>
-21
-
-> <s_fepmapper_entryid>
-70
-
-> <r_user_IC50>
-4200
-
 > <CMPD_CHEMBLID>
 CHEMBL3402755
 
@@ -119,57 +110,6 @@ CHEMBL3402755_4200
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0003
-
-> <r_epik_State_Penalty>
-  0.0000
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-173.206
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--11.6309329646171
-
-> <r_i_glide_gscore>
--11.6309329646171
-
-> <r_i_glide_emodel>
--108.015245216409
-
-> <r_vsw_adjusted_score>
--11.6309329646171
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--7.33521550983
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 4200
@@ -310,15 +250,6 @@ CHEMBL3402761_1
  35 63  1  0  0  0
  36 37  3  0  0  0
 M  END
-> <s_m_entry_id>
-17
-
-> <s_fepmapper_entryid>
-66
-
-> <r_user_IC50>
-1
-
 > <CMPD_CHEMBLID>
 CHEMBL3402761
 
@@ -333,57 +264,6 @@ CHEMBL3402761_1
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0432
-
-> <r_epik_State_Penalty>
-  0.0366
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-237.879
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--12.3313183168955
-
-> <r_i_glide_gscore>
--12.3679183168955
-
-> <r_i_glide_emodel>
--127.170564918416
-
-> <r_vsw_adjusted_score>
--12.3313183168955
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--12.2782221371
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 1
@@ -487,15 +367,6 @@ CHEMBL3402754_40
  28 44  1  0  0  0
  29 45  1  0  0  0
 M  END
-> <s_m_entry_id>
-18
-
-> <s_fepmapper_entryid>
-67
-
-> <r_user_IC50>
-40
-
 > <CMPD_CHEMBLID>
 CHEMBL3402754
 
@@ -510,57 +381,6 @@ CHEMBL3402754_40
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0000
-
-> <r_epik_State_Penalty>
-  0.0000
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-136.926
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--12.0920852676798
-
-> <r_i_glide_gscore>
--12.0920852676798
-
-> <r_i_glide_emodel>
--110.951768664764
-
-> <r_vsw_adjusted_score>
--12.0920852676798
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--10.0926167537
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 40
@@ -657,15 +477,6 @@ CHEMBL3402744_300
  26 41  1  0  0  0
  27 42  1  0  0  0
 M  END
-> <s_m_entry_id>
-19
-
-> <s_fepmapper_entryid>
-80
-
-> <r_user_IC50>
-300
-
 > <CMPD_CHEMBLID>
 CHEMBL3402744
 
@@ -680,57 +491,6 @@ CHEMBL3402744_300
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0078
-
-> <r_epik_State_Penalty>
-  0.0058
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-145.706
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--11.230605508151
-
-> <r_i_glide_gscore>
--11.236405508151
-
-> <r_i_glide_emodel>
--103.706904009628
-
-> <r_vsw_adjusted_score>
--11.230605508151
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--8.89881713423
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 300
@@ -828,15 +588,6 @@ CHEMBL3402747_3400
  27 41  1  0  0  0
  28 42  1  0  0  0
 M  END
-> <s_m_entry_id>
-20
-
-> <s_fepmapper_entryid>
-68
-
-> <r_user_IC50>
-3400
-
 > <CMPD_CHEMBLID>
 CHEMBL3402747
 
@@ -851,57 +602,6 @@ CHEMBL3402747_3400
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0000
-
-> <r_epik_State_Penalty>
-  0.0000
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-130.792
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--11.9835433319931
-
-> <r_i_glide_gscore>
--11.9835433319931
-
-> <r_i_glide_emodel>
--104.943387969627
-
-> <r_vsw_adjusted_score>
--11.9835433319931
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--7.46041295757
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 3400
@@ -1001,15 +701,6 @@ CHEMBL3402752_30000
  27 42  1  0  0  0
  28 43  1  0  0  0
 M  END
-> <s_m_entry_id>
-16
-
-> <s_fepmapper_entryid>
-72
-
-> <r_user_IC50>
-30000
-
 > <CMPD_CHEMBLID>
 CHEMBL3402752
 
@@ -1024,57 +715,6 @@ CHEMBL3402752_30000
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0002
-
-> <r_epik_State_Penalty>
-  0.0000
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-133.83
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--11.5698349406148
-
-> <r_i_glide_gscore>
--11.5698349406148
-
-> <r_i_glide_emodel>
--105.734826687943
-
-> <r_vsw_adjusted_score>
--11.5698349406148
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--6.17032332598
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 30000
@@ -1174,15 +814,6 @@ CHEMBL3402751_2100
  27 42  1  0  0  0
  28 43  1  0  0  0
 M  END
-> <s_m_entry_id>
-22
-
-> <s_fepmapper_entryid>
-74
-
-> <r_user_IC50>
-2100
-
 > <CMPD_CHEMBLID>
 CHEMBL3402751
 
@@ -1197,57 +828,6 @@ CHEMBL3402751_2100
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0002
-
-> <r_epik_State_Penalty>
-  0.0000
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-137.044
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--11.3777946516474
-
-> <r_i_glide_gscore>
--11.3777946516474
-
-> <r_i_glide_emodel>
--102.609834439113
-
-> <r_vsw_adjusted_score>
--11.3777946516474
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--7.74589474946
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 2100
@@ -1349,15 +929,6 @@ CHEMBL3402748_5300
  27 43  1  0  0  0
  28 44  1  0  0  0
 M  END
-> <s_m_entry_id>
-23
-
-> <s_fepmapper_entryid>
-83
-
-> <r_user_IC50>
-5300
-
 > <CMPD_CHEMBLID>
 CHEMBL3402748
 
@@ -1372,57 +943,6 @@ CHEMBL3402748_5300
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-0.5
-
-> <r_epik_Ionization_Penalty>
-  0.9032
-
-> <r_epik_State_Penalty>
-  0.9880
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-142.387
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--10.5881467695801
-
-> <r_i_glide_gscore>
--11.5761467695801
-
-> <r_i_glide_emodel>
--104.528650859024
-
-> <r_vsw_adjusted_score>
--10.5881467695801
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--7.19739031191
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 5300
@@ -1522,15 +1042,6 @@ CHEMBL3402749_500
  27 42  1  0  0  0
  28 43  1  0  0  0
 M  END
-> <s_m_entry_id>
-24
-
-> <s_fepmapper_entryid>
-77
-
-> <r_user_IC50>
-500
-
 > <CMPD_CHEMBLID>
 CHEMBL3402749
 
@@ -1545,57 +1056,6 @@ CHEMBL3402749_500
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0000
-
-> <r_epik_State_Penalty>
-  0.0000
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-134.812
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--11.3441060602311
-
-> <r_i_glide_gscore>
--11.3441060602311
-
-> <r_i_glide_emodel>
--101.166038848338
-
-> <r_vsw_adjusted_score>
--11.3441060602311
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--8.59616066438
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 500
@@ -1701,15 +1161,6 @@ CHEMBL3402753_200
  28 45  1  0  0  0
  29 46  1  0  0  0
 M  END
-> <s_m_entry_id>
-25
-
-> <s_fepmapper_entryid>
-64
-
-> <r_user_IC50>
-200
-
 > <CMPD_CHEMBLID>
 CHEMBL3402753
 
@@ -1724,57 +1175,6 @@ CHEMBL3402753_200
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0130
-
-> <r_epik_State_Penalty>
-  0.0101
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-152.179
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--12.4328423776016
-
-> <r_i_glide_gscore>
--12.4429423776016
-
-> <r_i_glide_emodel>
--111.472636019064
-
-> <r_vsw_adjusted_score>
--12.4328423776016
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--9.13904908924
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 200
@@ -1874,15 +1274,6 @@ CHEMBL3402750_400
  27 42  1  0  0  0
  28 43  1  0  0  0
 M  END
-> <s_m_entry_id>
-26
-
-> <s_fepmapper_entryid>
-71
-
-> <r_user_IC50>
-400
-
 > <CMPD_CHEMBLID>
 CHEMBL3402750
 
@@ -1897,57 +1288,6 @@ CHEMBL3402750_400
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0001
-
-> <r_epik_State_Penalty>
-  0.0000
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-141.079
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--11.6299975674048
-
-> <r_i_glide_gscore>
--11.6299975674048
-
-> <r_i_glide_emodel>
--106.666334643562
-
-> <r_vsw_adjusted_score>
--11.6299975674048
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--8.72836984961
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 400
@@ -2050,15 +1390,6 @@ CHEMBL3402745_200
  27 44  1  0  0  0
  28 45  1  0  0  0
 M  END
-> <s_m_entry_id>
-27
-
-> <s_fepmapper_entryid>
-79
-
-> <r_user_IC50>
-200
-
 > <CMPD_CHEMBLID>
 CHEMBL3402745
 
@@ -2073,57 +1404,6 @@ CHEMBL3402745_200
 
 > <version>
 0
-
-> <r_lp_tautomer_probability>
-1
-
-> <r_epik_Ionization_Penalty>
-  0.0053
-
-> <r_epik_State_Penalty>
-  0.0037
-
-> <i_epik_Tot_Q>
-0
-
-> <r_mmod_Potential_Energy-OPLS-2005>
-144.792
-
-> <r_mmod_Relative_Potential_Energy-OPLS-2005>
-0
-
-> <b_mmod_Chiralities_Consistent-OPLS-2005>
-1
-
-> <r_i_docking_score>
--11.3001799462294
-
-> <r_i_glide_gscore>
--11.3038799462294
-
-> <r_i_glide_emodel>
--107.182749823207
-
-> <r_vsw_adjusted_score>
--11.3001799462294
-
-> <r_vsw_offset_used>
-0
-
-> <s_vsw_ensemble_receptor>
-1
-
-> <i_fepmapper_bias>
-0
-
-> <i_fepmapper_affinity>
-1
-
-> <r_fepmapper_exp_dG>
--9.13904908924
-
-> <i_fepmapper_unit>
-1
 
 > <STANDARD_VALUE>
 200

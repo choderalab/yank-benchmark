@@ -15,7 +15,7 @@
 #BSUB -gpu "num=1:j_exclusive=yes:mode=shared"
 #
 # job name (default = name of script file)
-#BSUB -J " abl-imatinib-explicit"
+#BSUB -J "c-met-hinge-neutral"
 
 build_mpirun_configfile "yank script --yaml=explicit-all.yaml"
 mpiexec.hydra -f hostfile -configfile configfile
