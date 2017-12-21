@@ -27,9 +27,6 @@ Auto Protocol took just over 1 hour to compute
 ## Common to both Explicit and Implicit
 
 * In each folder is the static `yank analyze report` files in Jupyter Notebook format
-* In each folder is the `*scatter.py` script which makes the FEP+ vs YANK free energy comparison
-    * The Python script makes the `*hinge_vs_fepp.png` images
-    * Data for these images drawn from the Jupyter Notebook files
 * In each folder is the `auto` protocol path breakdown outputs in the `{phase}_{solvent}_paths.png` files
     * In the top level `analysis-results` folder is the `path_plot_script.py` script which makes these images
     * The individual `.yaml` files are not included in this analysis for path output.
@@ -37,3 +34,5 @@ Auto Protocol took just over 1 hour to compute
 for the current data compared to FEP+ and Experimental numbers.
     * The `yank_compare.py` file generates this figure.
     * The `free_energy_data.npz` is the aggregated data from YANK, FEP+, and Experiment.
+    * The `populate_analysis_data.py` reads script reads the Jupyter Notebooks and the SDF files in the `../input`
+      folder to create the `free_energy_data.npz` file
