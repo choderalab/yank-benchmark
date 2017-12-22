@@ -8,10 +8,6 @@
 file has name, SMILES, binding free energy and error (`null` if no error was available), assay temperature (in Kelvin),
 buffer pH and salt concentration (in `M`), and reference to the paper with the original description of the assay.
 
-## To do
-- I have to determine exactly where does the measurement for L99A/M102Q-catechol comes from. I have opened issue #63 in
-the benchmarksets repo to discuss this.
-
 ## Notes
 - The most populated protonation state at pH <= 6.8 seems pretty trivial, but I run Epik anyway, and the most likely
 states turned out to be the same as those in the `input/ligands-*.mol2` files.
