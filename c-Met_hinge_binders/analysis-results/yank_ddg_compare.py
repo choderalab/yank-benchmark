@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import copy
 
+# Load data from the stored numpy file
 data = np.load('free_energy_data.npz')
 exp = data['experimental']
 fepp = data['fepplus']
@@ -13,20 +14,24 @@ yank_explicit_error = data['yank_explicit_error']
 yank_implicit_fe = data['yank_implicit_fe']
 yank_implicit_error = data['yank_implicit_error']
 
+#Count number of ligands
 nligands = len(exp)
 
 
 def fit(x, y):
+    # Find Y = X + B function (shift the y=x line, not used for DDG)
     return np.mean(y - 1*x)
 
 
 def rmse(x, y, b):
+    # RMSE evaluation of an expected X and measured Y with the desired relation Y = X + B curve
     f = 1*x + b
     rmse = np.sqrt(np.mean((f-y)**2))
     return rmse
 
 
 def mue(x, y, b):
+    # Mean Unsigned Error, see RMSE for args
     f = 1*x + b
     return np.mean(np.abs(f-y))
 
@@ -58,6 +63,7 @@ def boostrap_fn(x, y, b, function=rmse, nreplicates=1000):
 
 
 def equalize_ticks(axes, small_ax):
+    # Plotting helper function to set the tick labels to be identical relative to which small_ax(es) is provided
     if small_ax == "x":
         large_ax = "y"
     else:
@@ -70,6 +76,7 @@ def equalize_ticks(axes, small_ax):
     getattr(axes, "set_{}ticks".format(large_ax))(real_ticks)
 
 
+# Flatten names, X data, and Y data to loop over for plotting
 ynames =  ['YANK implicit',     'YANK explicit',     'FEP+',             'YANK implicit',     'YANK explicit']
 xnames =  ['experimental',      'experimental',      'experimental',     'FEP+',              'FEP+']
 ydatas =  [yank_implicit_fe,    yank_explicit_fe,    fepp,               yank_implicit_fe,    yank_explicit_fe]
@@ -77,46 +84,53 @@ yerrors = [yank_implicit_error, yank_explicit_error, np.zeros(nligands), yank_im
 xdatas =  [exp,                 exp,                 exp,                fepp,                fepp]
 nplots = len(xdatas)
 
-# all_data = np.concatenate((exp, fepp, yank_explicit_fe, yank_implicit_fe))
+# Populate blank data holders
 all_data = np.array([])
 rmses_x = [None] * nplots
 rmses_y = [None] * nplots
 
+# Set figure color base, scalar base, row and column count.
 sns.set()
+sbn_colors = sns.color_palette("hls", nligands)
 base_size = 4
 nrows = 2
 ncols = 3
 da_set = [('RMSE', rmse), ('MUE', mue)]
 
 f, a = plt.subplots(nrows, ncols, figsize=(base_size*ncols, base_size*nrows))
-color_wraps = ['orange', 'g']
-decoy_artists = []
-# Calculate plot min/max limits
 # First pass: plot data
-sbn_colors = sns.color_palette("hls", nligands)
 for index in range(nplots):
-    axes = a.flatten()[index]
+    axes = a.flatten()[index]  # Get plot we are working with
+    # Copy data so modifications dont change original
     xname = copy.deepcopy(xnames[index])
     xdata = copy.deepcopy(xdatas[index])
     yname = copy.deepcopy(ynames[index])
     ydata = copy.deepcopy(ydatas[index])
     yerror = copy.deepcopy(yerrors[index])
+    # Empty place holder
     rmse_x = np.array([])
     rmse_y = np.array([])
+    # Loop through each relative ligand
     for ref_id in range(nligands):
         color = sbn_colors[ref_id]
+        # Shift data local to the reference ligand
         xlocal = xdata - xdata[ref_id]
         ylocal = ydata - ydata[ref_id]
         yerror_local = np.sqrt(yerror**2 + yerror[ref_id]**2)
         # Plot the scatter
         axes.scatter(xlocal, ylocal, marker='o', edgecolors='k',
                      c=color, zorder=20)
+        # Plot the error bars under the scatter
+        # Cant use marker here because less control on the marker colors
         axes.errorbar(xlocal, ylocal, yerr=2*yerror_local, ecolor=color,
                       elinewidth=0, mec='none', mew=0, linestyle='None',
                       zorder=10)
+        # Add all data together for min/max determination, redundancy does no harm her
         all_data = np.concatenate((all_data, xlocal, ylocal))
+        # Combine all data for this plot to be analyzed for RMSE/MUE later
         rmse_x = np.concatenate((rmse_x, xlocal))
         rmse_y = np.concatenate((rmse_y, ylocal))
+    # Store combined data from this plot for 2nd pass
     rmses_x[index] = rmse_x
     rmses_y[index] = rmse_y
 # 2nd pass for formatting
@@ -130,10 +144,6 @@ for index in range(nplots):
     yname = copy.deepcopy(ynames[index])
     # Plot the y=x line
     axes.plot(min_max, min_max, lw=1, c='k', zorder=30)
-    # Calculate the local best fit line
-    local_fit = fit(rmse_x, rmse_y)
-    # Plot the local best fit line
-    axes.plot(min_max, min_max + local_fit, zorder=30)
     # Set the limits and aspect ratio
     axes.set_xlim(min_max)
     axes.set_ylim(min_max)
@@ -143,9 +153,10 @@ for index in range(nplots):
     axes.set_ylabel(r"$\Delta\Delta G$ {} (kcal/mol)".format(yname))
     title_text = []
     for name, fn in da_set:
-        local = fn(rmse_x, rmse_y, local_fit)
+        # Calculate RMSE or MUE, relation Y=X+0 == Y=X
+        local = fn(rmse_x, rmse_y, 0)
         # Calculate CI
-        ci_min, ci_max = boostrap_fn(rmse_x, rmse_y, local_fit, fn)
+        ci_min, ci_max = boostrap_fn(rmse_x, rmse_y, 0, fn)
         title_text.append("{3}: {0:3.2f} [{1:3.2f}, {2:3.2f}] kcal/mol".format(local, ci_min, ci_max, name))
     axes.annotate('\n'.join(title_text),
                   xy=(0.5, 1.08),
