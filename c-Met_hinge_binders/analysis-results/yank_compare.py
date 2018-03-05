@@ -123,6 +123,6 @@ for index in range(nplots, a.size):
     f.delaxes(a.flatten()[index])
 # Adjust spacing
 f.subplots_adjust(hspace=0.00, wspace=0.4, top=0.99, bottom=0.05, left=0.1, right=0.95)
-f.savefig("Yank_hinge_vs_fepp_exper.png", bbox_inches='tight')
-f.savefig("Yank_hinge_vs_fepp_exper.pdf", bbox_inches='tight')
+f.savefig("dg_hinge_vs_fepp_exper.png", bbox_inches='tight')
+f.savefig("dg_hinge_vs_fepp_exper.pdf", bbox_inches='tight')
 plt.show()

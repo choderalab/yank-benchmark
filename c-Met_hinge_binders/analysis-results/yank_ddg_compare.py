@@ -114,9 +114,9 @@ for index in range(nplots):
     for ref_id in range(nligands):
         color = sbn_colors[ref_id]
         # Shift data local to the reference ligand
-        xlocal = xdata - xdata[ref_id]
-        ylocal = ydata - ydata[ref_id]
-        yerror_local = np.sqrt(yerror**2 + yerror[ref_id]**2)
+        xlocal = np.delete(xdata - xdata[ref_id], ref_id)
+        ylocal = np.delete(ydata - ydata[ref_id], ref_id)
+        yerror_local = np.delete(np.sqrt(yerror**2 + yerror[ref_id]**2), ref_id)
         # Plot the scatter
         axes.scatter(xlocal, ylocal, marker='o', edgecolors='k',
                      c=color, zorder=20)
@@ -180,6 +180,6 @@ txt += "$\Delta\Delta G$ is taken separately on each axis\n" \
        "e.g. Experiment is relative to Experiment,\n   and FEP+ is relative to FEP+\n\n"
 txt += "Dot color between figures is the same\nreference molecule"
 # f.text((ncols*3-3)/(ncols*3), (1)/(nrows*2), txt, wrap=True,)
-f.savefig("mue_hinge_vs_fepp_exper.png", bbox_inches='tight')
-# f.savefig("mue_hinge_vs_fepp_exper.pdf", bbox_inches='tight')
+f.savefig("ddg_hinge_vs_fepp_exper.png", bbox_inches='tight')
+f.savefig("ddg_hinge_vs_fepp_exper.pdf", bbox_inches='tight')
 # plt.show()
