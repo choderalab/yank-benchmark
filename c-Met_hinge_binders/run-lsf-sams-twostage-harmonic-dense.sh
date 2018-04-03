@@ -3,7 +3,7 @@
 #BSUB -W 24:00
 #
 # Set output file
-#BSUB -o  c-met-hinge-sams-dense.%J.log
+#BSUB -o  c-met-hinge-sams-harmonic-dense.%J.log
 #
 # Specify node group
 #BSUB -m "ls-gpu lt-gpu"
@@ -14,7 +14,7 @@
 #BSUB -gpu "num=1:j_exclusive=yes:mode=shared"
 #
 # job name (default = name of script file)
-#BSUB -J "c-met-hinge-sams-dense"
+#BSUB -J "c-met-hinge-sams-harmonic-dense"
 
-build_mpirun_configfile "yank script --yaml=sams-twostage-dense.yaml"
+build_mpirun_configfile "yank script --yaml=sams-twostage-harmonic-dense.yaml"
 mpiexec.hydra -f hostfile -configfile configfile
