@@ -13,6 +13,12 @@ https://doi.org/10.1016/j.bmcl.2015.02.002
 
 ```
 
+## EXPERIMENTAL: SAMS input files
+
+* `sams-twostage-boresch-dense.yaml` - single-replica SAMS with dense alchemical protocol and Boresch restraints (experimental)
+* `sams-twostage-harmonic-dense.yaml` - single-replica SAMS with dense alchemical protocol and Harmonic restraints (experimental)
+* `repex-twostage-auto.yaml` - single-replica replica-exchange with thermodynamic trailblazing (for comparison)
+* `sams-twostage-auto.yaml` - single-replica SAMS with thermodynamic trailblazing (not recommended)
 
 ## Manifest
 
