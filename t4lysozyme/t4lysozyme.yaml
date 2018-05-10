@@ -1,0 +1,271 @@
+---
+options:
+  verbose: no
+  output_dir: .
+
+  pressure: 1*atmosphere
+  constraints: HBonds
+  anisotropic_dispersion_cutoff: auto
+
+  minimize: yes
+  number_of_iterations: 5000
+  nsteps_per_iteration: 500
+  timestep: 2*femtoseconds
+  checkpoint_interval: 1000
+
+  annihilate_electrostatics: yes
+  annihilate_sterics: no
+
+
+# Molecules
+# ---------
+
+oe_charges: &oe_charges
+  openeye:
+    quacpac: am1-bcc
+  antechamber:
+    charge_method: null
+
+molecules:
+  l99a-55:
+    filepath: input/l99a-55.mcce.pdb
+  ligands-l99a-1-16:
+    filepath: input/ligands-l99a-1-16.mol2
+    select: all
+    <<: *oe_charges
+  ligands-l99a-flatbottom:
+    filepath: input/ligands-l99a-1-16.mol2
+    select: !Combinatorial [4, 5]  # butylbenzene, p-xylene
+    <<: *oe_charges
+
+  l99a-68:
+    filepath: input/l99a-68.mcce.pdb
+  ligands-l99a-17-19:
+    filepath: input/ligands-l99a-17-19.mol2
+    select: all
+    <<: *oe_charges
+
+  l99a-545:
+    filepath: input/l99a-545.mcce.pdb
+  ligands-l99a-20-21:
+    filepath: input/ligands-l99a-20-21.mol2
+    select: all
+    <<: *oe_charges
+
+  l99a-m102q-68:
+    filepath: input/l99a-m102q-68.mcce.pdb
+  ligands-l99a-m102q-1-3:
+    filepath: input/ligands-l99a-m102q-1-3.mol2
+    select: all
+    <<: *oe_charges
+  ligands-l99a-m102q-4-8:
+    filepath: input/ligands-l99a-m102q-4-8.mol2
+    select: all
+    <<: *oe_charges
+
+
+# Solvents
+# --------
+
+common_PME: &common_PME
+  nonbonded_method: PME
+  clearance: 12*angstroms
+  nonbonded_cutoff: 11*angstroms
+  switch_distance: 10*angstroms
+  ewald_error_tolerance: 1.0e-4
+  negative_ion: Cl-
+
+common_tip3p: &common_tip3p
+  <<: *common_PME
+  solvent_model: tip3p
+  leap:
+    parameters: [leaprc.water.tip3p]
+
+common_tip4pew: &common_tip4pew
+  <<: *common_PME
+  solvent_model: tip4pew
+  leap:
+    parameters: [leaprc.water.tip4pew]
+
+explicit_50mM_acetate_55: &explicit_50mM_acetate_55
+  positive_ion: Na+
+  ionic_strength: 43.44*millimolar
+
+implicit_50mM_acetate_55: &implicit_50mM_acetate_55
+  nonbonded_method: NoCutoff
+  implicit_solvent_salt_conc: 43.44*millimolar
+
+explicit_50mM_acetate_545: &explicit_50mM_acetate_545
+  positive_ion: Na+
+  ionic_strength: 42.89*millimolar
+
+implicit_50mM_acetate_545: &implicit_50mM_acetate_545
+  nonbonded_method: NoCutoff
+  implicit_solvent_salt_conc: 42.89*millimolar
+
+explicit_100mM_sodium_phosphate: &explicit_100mM_sodium_phosphate
+  positive_ion: Na+
+  ionic_strength: 740.85*millimolar
+
+implicit_100mM_sodium_phosphate: &implicit_100mM_sodium_phosphate
+  nonbonded_method: NoCutoff
+  implicit_solvent_salt_conc: 740.85*millimolar
+
+explicit_50mM_potassium_phosphate: &explicit_50mM_potassium_phosphate
+  positive_ion: K+
+  ionic_strength: 322.37*millimolar
+
+implicit_50mM_potassium_phosphate: &implicit_50mM_potassium_phosphate
+  nonbonded_method: NoCutoff
+  implicit_solvent_salt_conc: 322.37*millimolar
+
+
+solvents:
+  tip3p_50mM_acetate_55:
+    <<: *common_tip3p
+    <<: *explicit_50mM_acetate_55
+  tip3p_50mM_acetate_545:
+    <<: *common_tip3p
+    <<: *explicit_50mM_acetate_545
+  tip3p_100mM_sodium_phosphate:
+    <<: *common_tip3p
+    <<: *explicit_100mM_sodium_phosphate
+  tip3p_50mM_potassium_phosphate:
+    <<: *common_tip3p
+    <<: *explicit_50mM_potassium_phosphate
+
+  tip4pew_50mM_acetate_55:
+    <<: *common_tip4pew
+    <<: *explicit_50mM_acetate_55
+  tip4pew_50mM_acetate_545:
+    <<: *common_tip4pew
+    <<: *explicit_50mM_acetate_545
+  tip4pew_100mM_sodium_phosphate:
+    <<: *common_tip4pew
+    <<: *explicit_100mM_sodium_phosphate
+  tip4pew_50mM_potassium_phosphate:
+    <<: *common_tip4pew
+    <<: *explicit_50mM_potassium_phosphate
+
+  OBC1_50mM_acetate_55:
+    <<: *implicit_50mM_acetate_55
+    implicit_solvent: OBC1
+  OBC1_50mM_acetate_545:
+    <<: *implicit_50mM_acetate_545
+    implicit_solvent: OBC1
+  OBC1_100mM_sodium_phosphate:
+    <<: *implicit_100mM_sodium_phosphate
+    implicit_solvent: OBC1
+  OBC1_50mM_potassium_phosphate:
+    <<: *implicit_50mM_potassium_phosphate
+    implicit_solvent: OBC1
+
+  OBC2_50mM_acetate_55:
+    <<: *implicit_50mM_acetate_55
+    implicit_solvent: OBC2
+  OBC2_50mM_acetate_545:
+    <<: *implicit_50mM_acetate_545
+    implicit_solvent: OBC2
+  OBC2_100mM_sodium_phosphate:
+    <<: *implicit_100mM_sodium_phosphate
+    implicit_solvent: OBC2
+  OBC2_50mM_potassium_phosphate:
+    <<: *implicit_50mM_potassium_phosphate
+    implicit_solvent: OBC2
+
+  GBn_50mM_acetate_55:
+    <<: *implicit_50mM_acetate_55
+    implicit_solvent: GBn
+  GBn_50mM_acetate_545:
+    <<: *implicit_50mM_acetate_545
+    implicit_solvent: GBn
+  GBn_100mM_sodium_phosphate:
+    <<: *implicit_100mM_sodium_phosphate
+    implicit_solvent: GBn
+  GBn_50mM_potassium_phosphate:
+    <<: *implicit_50mM_potassium_phosphate
+    implicit_solvent: GBn
+
+
+# Experiments
+# -----------
+
+common_system: &common_system
+  leap:
+    parameters: [leaprc.protein.ff14SB, leaprc.gaff]
+
+systems:
+  l99a-flatbottom-system:
+    receptor: l99a-55
+    ligand: ligands-l99a-flatbottom
+    solvent: !Combinatorial [OBC1_50mM_acetate_55, OBC2_50mM_acetate_55, GBn_50mM_acetate_55, tip4pew_50mM_acetate_55, tip3p_50mM_acetate_55]
+    <<: *common_system
+  l99a-55-system:
+    receptor: l99a-55
+    ligand: ligands-l99a-1-16
+    solvent: !Combinatorial [OBC1_50mM_acetate_55, OBC2_50mM_acetate_55, GBn_50mM_acetate_55, tip4pew_50mM_acetate_55, tip3p_50mM_acetate_55]
+    <<: *common_system
+  l99a-68-system:
+    receptor: l99a-68
+    ligand: ligands-l99a-17-19
+    solvent: !Combinatorial [OBC1_100mM_sodium_phosphate, OBC2_100mM_sodium_phosphate, GBn_100mM_sodium_phosphate, tip4pew_100mM_sodium_phosphate, tip3p_100mM_sodium_phosphate]
+    <<: *common_system
+  l99a-545-system:
+    receptor: l99a-545
+    ligand: ligands-l99a-20-21
+    solvent: !Combinatorial [OBC1_50mM_acetate_545, OBC2_50mM_acetate_545, GBn_50mM_acetate_545, tip4pew_50mM_acetate_545, tip3p_50mM_acetate_545]
+    <<: *common_system
+  l99a-m102q-sodium-system:
+    receptor: l99a-m102q-68
+    ligand: ligands-l99a-m102q-1-3
+    solvent: !Combinatorial [OBC1_100mM_sodium_phosphate, OBC2_100mM_sodium_phosphate, GBn_100mM_sodium_phosphate, tip4pew_100mM_sodium_phosphate, tip3p_100mM_sodium_phosphate]
+    <<: *common_system
+  l99a-m102q-potassium-system:
+    receptor: l99a-m102q-68
+    ligand: ligands-l99a-m102q-4-8
+    solvent: !Combinatorial [OBC1_50mM_potassium_phosphate, OBC2_50mM_potassium_phosphate, GBn_50mM_potassium_phosphate, tip4pew_50mM_potassium_phosphate, tip3p_50mM_potassium_phosphate]
+    <<: *common_system
+
+protocols:
+  binding-auto:
+    complex:
+      alchemical_path: auto
+    solvent:
+      alchemical_path: auto
+
+common_experiment: &common_experiment
+  protocol: binding-auto
+  restraint:
+    type: Harmonic
+    restrained_ligand_atoms: (resname MOL) and (mass > 1.5)
+    restrained_receptor_atoms: (resi 77 or resi 83 or resi 86 or resi 87 or resi 90 or resi 98 or resi 101 or resi 102 or resi 110 or resi 117 or resi 120 or resi 152) and (mass > 1.5)
+
+experiment-flatbottom:
+  system: l99a-flatbottom-system
+  options:
+    temperature: 302.15*kelvin
+  protocol: binding-auto
+  restraint:
+    type: FlatBottom
+    restrained_ligand_atoms: (resname MOL) and (mass > 1.5)
+    restrained_receptor_atoms: (resi 77 or resi 83 or resi 86 or resi 87 or resi 90 or resi 98 or resi 101 or resi 102 or resi 110 or resi 117 or resi 120 or resi 152) and (mass > 1.5)
+
+experiment-t302:
+  system: l99a-55-system
+  options:
+    temperature: 302.15*kelvin
+  <<: *common_experiment
+
+experiment-t283:
+  system: !Combinatorial [l99a-68-system, l99a-m102q-sodium-system, l99a-m102q-potassium-system]
+  options:
+    temperature: 283.15*kelvin
+  <<: *common_experiment
+
+experiment-t276:
+  system: l99a-545-system
+  options:
+    temperature: 276.15*kelvin
+  <<: *common_experiment
+
+experiments: [experiment-flatbottom, experiment-t302, experiment-t283, experiment-t276]
