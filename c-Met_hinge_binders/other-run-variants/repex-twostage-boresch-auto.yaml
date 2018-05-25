@@ -1,7 +1,7 @@
 options:
   minimize: yes
   verbose: no
-  output_dir: repex-twostage-harmonic-auto
+  output_dir: repex-twostage-boresch-auto
   temperature: 300*kelvin
   pressure: 1*atmosphere
   switch_experiment_interval: 5000
@@ -9,7 +9,6 @@ options:
   resume_simulation: yes
   processes_per_experiment: 1
   hydrogen_mass: 3.0 * amu
-  checkpoint_interval: 50
 
 molecules:
   c-Met-4r1y:

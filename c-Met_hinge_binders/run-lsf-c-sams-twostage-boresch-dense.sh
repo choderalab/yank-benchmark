@@ -17,5 +17,5 @@
 # job name (default = name of script file)
 #BSUB -J "hinge-c-sams-boresch-dense"
 
-build_mpirun_configfile --hostfilepath hostfile.sams.bored --configfilepath configfile.sams.bored "yank script --yaml=charge-sams-twostage-boresch-dense.yaml"
-mpiexec.hydra -f hostfile.sams.bored -configfile configfile.sams.bored
+build_mpirun_configfile --hostfilepath hostfile.csams.bored --configfilepath configfile.csams.bored "yank script --yaml=charge-sams-twostage-boresch-dense.yaml"
+mpiexec.hydra -f hostfile.csams.bored -configfile configfile.csams.bored

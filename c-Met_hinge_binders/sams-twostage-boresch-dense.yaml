@@ -9,7 +9,6 @@ options:
   resume_simulation: yes
   processes_per_experiment: 1
   hydrogen_mass: 3.0 * amu
-  checkpoint_interval: 50
 
 molecules:
   c-Met-4r1y:
