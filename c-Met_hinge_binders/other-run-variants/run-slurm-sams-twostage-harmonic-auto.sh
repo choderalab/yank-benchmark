@@ -10,12 +10,11 @@
 #SBATCH --partition=GTX
 #
 # Nodes
-#SBATCH -N 2 -n 8 --gres=gpu:4
+#SBATCH -N 4 -n 8 --gres=gpu:2
 #
 #SBATCH --export=ALL
 #
-#SBATCH --job-name="c-met-XXX"
+#SBATCH --job-name="c-met-sams-auto"
 
-source activate yank17
-build_mpirun_configfile "yank script --yaml=explicit.yaml"
+build_mpirun_configfile "yank script --yaml=sams-twostage-harmonic-auto.yaml"
 mpiexec.hydra -f hostfile -configfile configfile
