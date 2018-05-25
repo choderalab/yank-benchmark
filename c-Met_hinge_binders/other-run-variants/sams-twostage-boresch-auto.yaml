@@ -79,6 +79,6 @@ protocols:
 experiments:
   sampler: sams
   system: c-met-hinge
-  protocol: dense-protocol
+  protocol: auto-protocol
   restraint:
     type: PeriodicTorsionBoresch

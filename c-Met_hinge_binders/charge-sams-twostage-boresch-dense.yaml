@@ -16,7 +16,7 @@ molecules:
     filepath: input/met_4r1y_mae_prot.pdb
     strip_protons: yes 
   single-hinge:
-    filepath: input/c-Met_bmcl_neutral_docked.sdf
+    filepath: input/c-Met_bmcl_charged_docked.sdf
     select: all
     openeye:
       quacpac: am1-bcc

@@ -1,7 +1,7 @@
 options:
   minimize: yes
   verbose: no
-  output_dir: sams-twostage-boresch-dense
+  output_dir: repex-twostage-harmonic-auto
   temperature: 300*kelvin
   pressure: 1*atmosphere
   switch_experiment_interval: 5000
@@ -32,12 +32,9 @@ mcmc_moves:
 
 samplers:
     sams:
-        type: SAMSSampler
+        type: ReplicaExchangeSampler
         mcmc_moves: langevin
-        state_update_scheme: global-jump
-        flatness_threshold: 10.0
         number_of_iterations: 200000
-        gamma0: 10.0
 
 solvents:
   pme:
@@ -79,6 +76,6 @@ protocols:
 experiments:
   sampler: sams
   system: c-met-hinge
-  protocol: dense-protocol
+  protocol: auto-protocol
   restraint:
     type: PeriodicTorsionBoresch

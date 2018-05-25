@@ -1,7 +1,7 @@
 options:
   minimize: yes
   verbose: no
-  output_dir: sams-twostage-boresch-dense
+  output_dir: sams-twostage-harmonic-auto
   temperature: 300*kelvin
   pressure: 1*atmosphere
   switch_experiment_interval: 5000
@@ -79,6 +79,7 @@ protocols:
 experiments:
   sampler: sams
   system: c-met-hinge
-  protocol: dense-protocol
+  protocol: auto-protocol
   restraint:
-    type: PeriodicTorsionBoresch
+    type: Harmonic
+    restrained_receptor_atoms: (resid 21 or resid 22 or resid 23 or resid 30 or resid 46 or resid 48 or resid 78 or resid 95 or resid 96 or resid 97 or resid 98 or resid 99 or resid 100 or resid 101 or resid 102 or resid 104 or resid 105 or resid 146 or resid 147 or resid 148 or resid 149 or resid 159 or resid 160 or resid 161 or resid 164 or resid 168 or resid 169) and (mass > 1.5)

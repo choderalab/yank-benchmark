@@ -14,7 +14,7 @@
 #
 #SBATCH --export=ALL
 #
-#SBATCH --job-name="c-met-sams"
+#SBATCH --job-name="c-met-sams-auto"
 
-build_mpirun_configfile "yank script --yaml=sams-twostage.yaml"
+build_mpirun_configfile "yank script --yaml=sams-twostage-harmonic-auto.yaml"
 mpiexec.hydra -f hostfile -configfile configfile

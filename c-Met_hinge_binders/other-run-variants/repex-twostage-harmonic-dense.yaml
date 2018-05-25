@@ -1,7 +1,7 @@
 options:
   minimize: yes
   verbose: no
-  output_dir: sams-twostage-harmonic-auto
+  output_dir: repex-twostage-harmonic-auto
   temperature: 300*kelvin
   pressure: 1*atmosphere
   switch_experiment_interval: 5000
@@ -10,10 +10,6 @@ options:
   processes_per_experiment: 1
   hydrogen_mass: 3.0 * amu
   checkpoint_interval: 50
-
-  #annihilate_electrostatics: yes
-  #annihilate_sterics: no
-  #alchemical_pme_treatment: exact 
 
 molecules:
   c-Met-4r1y:
@@ -36,12 +32,9 @@ mcmc_moves:
 
 samplers:
     sams:
-        type: SAMSSampler
+        type: ReplicaExchangeSampler
         mcmc_moves: langevin
-        state_update_scheme: global-jump
-        flatness_threshold: 10.0
         number_of_iterations: 200000
-        gamma0: 10.0
 
 solvents:
   pme:
@@ -83,7 +76,7 @@ protocols:
 experiments:
   sampler: sams
   system: c-met-hinge
-  protocol: auto-protocol
+  protocol: dense-protocol
   restraint:
     type: Harmonic
     restrained_receptor_atoms: (resid 21 or resid 22 or resid 23 or resid 30 or resid 46 or resid 48 or resid 78 or resid 95 or resid 96 or resid 97 or resid 98 or resid 99 or resid 100 or resid 101 or resid 102 or resid 104 or resid 105 or resid 146 or resid 147 or resid 148 or resid 149 or resid 159 or resid 160 or resid 161 or resid 164 or resid 168 or resid 169) and (mass > 1.5)
