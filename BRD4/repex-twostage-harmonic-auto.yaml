@@ -4,7 +4,7 @@ options:
   output_dir: repex-twostage-harmonic-auto
   temperature: 300*kelvin
   pressure: 1*atmosphere
-  switch_experiment_interval: 5000
+  switch_experiment_interval: 10
   resume_setup: yes
   resume_simulation: yes
   processes_per_experiment: 1
@@ -39,6 +39,7 @@ samplers:
         type: ReplicaExchangeSampler
         mcmc_moves: langevin
         number_of_iterations: 10000
+        online_analysis_interval: null
 
 solvents:
   pme:

@@ -4,7 +4,7 @@ options:
   output_dir: sams-twostage-harmonic-dense
   temperature: 300*kelvin
   pressure: 1*atmosphere
-  switch_experiment_interval: 5000
+  switch_experiment_interval: 50
   resume_setup: yes
   resume_simulation: yes
   processes_per_experiment: 1
@@ -42,6 +42,7 @@ samplers:
         flatness_threshold: 10.0
         number_of_iterations: 200000
         gamma0: 10.0
+        online_analysis_interval: null
 
 solvents:
   pme:
