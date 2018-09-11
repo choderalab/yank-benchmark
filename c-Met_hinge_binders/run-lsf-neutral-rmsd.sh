@@ -10,7 +10,7 @@
 #BSUB -q gpuqueue
 #
 # nodes: number of nodes and GPU request
-#BSUB -n 12
+#BSUB -n 24
 #BSUB -gpu "num=4:j_exclusive=yes:mode=shared" -R "rusage[mem=36] span[ptile=4]"
 #
 # job name (default = name of script file)
