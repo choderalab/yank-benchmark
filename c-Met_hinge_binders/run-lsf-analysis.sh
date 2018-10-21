@@ -7,17 +7,18 @@
 #
 # Specify node group
 #BSUB -m "ls-gpu lt-gpu lp-gpu lg-gpu"
-#BSUB -q cpuqueue
+#BSUB -q gpuqueue
 #
 # nodes: number of nodes and GPU request
-#BSUB -n 12
+#BSUB -n 1
+#BSUB -gpu "num=1:j_exclusive=yes:mode=shared"
 #BSUB -R "rusage[mem=48]"
 #
 # job name (default = name of script file)
 #BSUB -J "analyze"
 
-mpirun -np 12 yank analyze report --yaml neutral-sams-rmsd-0.yaml --output reports-0 --serial=analysis.yaml
-mpirun -np 12 yank analyze --yaml neutral-sams-rmsd-0.yaml --serial=analysis-0.pkl
+YAMLNAME="neutral-sams-rmsd-long"
 
-mpirun -np 12 yank analyze report --yaml neutral-sams-rmsd.yaml --output reports --serial=analysis.yaml
-mpirun -np 12 yank analyze --yaml neutral-sams-rmsd.yaml --serial=analysis.pkl
+yank analyze --yaml ${YAMLNAME}.yaml --serial=analysis-${YAMLNAME}.pkl
+yank analyze report --yaml ${YAMLNAME}.yaml --output reports-${YAMLNAME}
+

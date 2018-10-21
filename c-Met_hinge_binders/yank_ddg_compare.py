@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import copy
 import pickle
+from simtk import unit
 
 import openeye.oechem as oechem
 from openeye import oedepict
@@ -39,18 +40,25 @@ print(fepplus_error)
 nligands = len(exp_fe)
 
 # Load data from analysis pickle
-analysis_filename = 'analysis.pkl'
+analysis_filename = 'analysis-neutral-sams-rmsd-long.pkl'
 with open(analysis_filename, 'rb') as f:
     data = pickle.load(f)
-prefix = 'Harmonic_cmethingesinglehinge'
-#prefix = 'PeriodicTorsionBorsch_cmethingesinglehinge'
+print(data.keys())
+#prefix = 'Harmonic_cmethingesinglehinge'
+prefix = 'cmethingesinglehinge'
+#prefix = 'PeriodicTorsionBoresch_cmethingesinglehinge'
 yank_explicit_fe = np.zeros([nligands], np.float64)
 yank_explicit_error = np.zeros([nligands], np.float64)
 yank_implicit_fe = None
 yank_implicit_error = None
+energy_unit = unit.kilocalories_per_mole
 for index in range(nligands):
-    yank_explicit_fe[index] = data[f'{prefix}{index}']['free_energy']['free_energy_diff']
-    yank_explicit_error[index] = data[f'{prefix}{index}']['free_energy']['free_energy_diff_error']
+    name = '%s%d' % (prefix, index)
+    try:
+        yank_explicit_fe[index] = data[name]['free_energy']['free_energy_diff_unit'] / energy_unit
+        yank_explicit_error[index] = data[name]['free_energy']['free_energy_diff_error_unit'] / energy_unit
+    except Exception as e:
+        print('%s : %s' % (name, str(e)))
 
 def fit(x, y):
     # Find Y = X + B function (shift the y=x line, not used for DDG)
@@ -176,6 +184,8 @@ for index in range(nplots):
         color = sbn_colors
         axes.scatter(xdata, ydata, marker='o', edgecolors='k',
                          c=color, zorder=20)
+        for i in range(nligands):
+            axes.text(xdata[i], ydata[i], '%d' % i) # DEBUG
         # Plot the error bars under the scatter
         # Cant use marker here because less control on the marker colors
         axes.errorbar(xdata, ydata, yerr=2*yerror, ecolor=color,
@@ -185,6 +195,7 @@ for index in range(nplots):
 # 2nd pass for formatting
 # Establish min/max limits on graph
 min_max = np.array([min(all_data)-.5, max(all_data)+0.5])
+min_max = np.array([-25, +25]) # DEBUG
 for index in range(nplots):
     axes = a.flatten()[index]
     rmse_x = rmses_x[index]

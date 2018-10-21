@@ -4,12 +4,14 @@ options:
   output_dir: neutral-rmsd
   temperature: 300*kelvin
   pressure: 1*atmosphere
-  switch_experiment_interval: 1000
+  switch_experiment_interval: 500
+  checkpoint_interval: 100
   resume_setup: yes
   resume_simulation: yes
   processes_per_experiment: 1
   hydrogen_mass: 3.0 * amu
   alchemical_pme_treatment: exact
+  platform: OpenCL
 
 molecules:
   c-Met-4r1y:
@@ -30,7 +32,7 @@ mcmc_moves:
         reassign_velocities: no
         splitting: 'V R O R V'
         n_steps: 1250
-        n_restart_attempts: 10
+        n_restart_attempts: 4
 
 samplers:
     sams:
@@ -77,4 +79,5 @@ experiments:
   system: c-met-hinge
   protocol: dense-protocol
   restraint:
-    type: !Combinatorial [Harmonic, PeriodicTorsionBoresch]
+    type: Harmonic
+    #type: !Combinatorial [Harmonic, PeriodicTorsionBoresch]

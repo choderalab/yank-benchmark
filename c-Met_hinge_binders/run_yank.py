@@ -48,9 +48,9 @@ class TwoRestraintsPhaseFactory(AlchemicalPhaseFactory):
         # Create the alchemical phase.
         alchemical_phase = super(TwoRestraintsPhaseFactory, self).create_alchemical_phase()
 
-        # Set initial thermodynamic state to last one. Assume there's only 1 replica for now.
-        assert alchemical_phase._sampler.n_replicas == 1
-        alchemical_phase._sampler._replica_thermodynamic_states[0] = alchemical_phase._sampler.n_states - 1
+        # Set initial thermodynamic state to last one if using SAMS
+        if (alchemical_phase._sampler.n_replicas == 1):
+            alchemical_phase._sampler._replica_thermodynamic_states[0] = alchemical_phase._sampler.n_states - 1
 
         return alchemical_phase
 
@@ -61,8 +61,10 @@ class TwoRestraintsPhaseFactory(AlchemicalPhaseFactory):
         if minimize is True:
             # This hack is not compatible if we also want to randomize
             # the ligand or equilibrate after minimization.
-            assert self.options['randomize_ligand'] is False
-            assert self.options['number_of_equilibration_iterations'] <= 0
+            # DEBUG for repex auto
+            #assert self.options['randomize_ligand'] is False
+            #assert self.options['number_of_equilibration_iterations'] <= 0
+            self.options['number_of_equilibration_iterations'] = 0
             self.options['minimize'] = False
 
         # Run usual method without minimization.
