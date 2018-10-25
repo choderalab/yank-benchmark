@@ -1,18 +1,15 @@
 options:
   minimize: yes
   verbose: no
-  output_dir: sams-twostage-boresch-dense
+  output_dir: sams-twostage-boresch-dense-exact
   temperature: 300*kelvin
   pressure: 1*atmosphere
-  switch_experiment_interval: 1000
+  switch_experiment_interval: 100
   resume_setup: yes
   resume_simulation: yes
   processes_per_experiment: 1
   hydrogen_mass: 3.0 * amu
-  checkpoint_interval: 200
-
-  #annihilate_electrostatics: yes
-  #annihilate_sterics: no
+  checkpoint_interval: 100
   alchemical_pme_treatment: exact 
 
 molecules:
@@ -30,9 +27,9 @@ molecules:
 mcmc_moves:
     langevin:
         type: LangevinSplittingDynamicsMove
-        timestep: 2.5*femtosecond
-        splitting: 'V R O R V'
-        n_steps: 2000
+        timestep: 4.0*femtosecond
+        splitting: 'V R R R O R R R V'
+        n_steps: 1250
 
 samplers:
     sams:
