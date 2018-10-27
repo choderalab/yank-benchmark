@@ -201,6 +201,8 @@ for index in range(nplots):
 # Establish min/max limits on graph
 min_max = np.array([min(all_data)-.5, max(all_data)+0.5])
 min_max = np.array([-25, +25]) # DEBUG
+#min_max = np.array([-17, -5]) # DEBUG ZOOM
+
 for index in range(nplots):
     axes = a.flatten()[index]
     rmse_x = rmses_x[index]
