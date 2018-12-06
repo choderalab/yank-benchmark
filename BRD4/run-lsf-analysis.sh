@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+B1;95;0c#!/usr/bin/env bash
 # Set walltime limit
 #BSUB -W 5:59
 #
@@ -16,6 +16,12 @@
 #
 # job name (default = name of script file)
 #BSUB -J "BRD4-analyze-3"
+
+
+YAMLNAME="BRD4-repex-2"
+
+yank analyze --yaml ${YAMLNAME}.yaml --serial=analysis-${YAMLNAME}.pkl
+yank analyze report --yaml ${YAMLNAME}.yaml --output reports-${YAMLNAME}
 
 YAMLNAME="BRD4-sams-3"
 

@@ -44,7 +44,7 @@ print(fepplus_error)
 nligands = len(exp_fe)
 
 # Load data from analysis pickle
-analysis_filename = 'analysis-BRD4-sams-2.pkl'
+analysis_filename = 'analysis-BRD4-sams-3.pkl'
 with open(analysis_filename, 'rb') as f:
     data = pickle.load(f)
 print(data.keys())
