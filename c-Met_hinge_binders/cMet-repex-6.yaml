@@ -74,4 +74,4 @@ experiments:
   system: c-met-hinge
   protocol: auto
   restraint:
-    type: Harmonic
+    type: !Combinatorial [Harmonic, PeriodicTorsionBoresch]
