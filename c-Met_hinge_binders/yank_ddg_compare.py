@@ -40,7 +40,7 @@ print(fepplus_error)
 nligands = len(exp_fe)
 
 # Load data from analysis pickle
-analysis_filename = 'analysis-neutral-sams-rmsd-long.pkl'
+analysis_filename = 'analysis-cMet-repex-6.pkl'
 with open(analysis_filename, 'rb') as f:
     data = pickle.load(f)
 print(data.keys())
@@ -207,8 +207,14 @@ for index in range(nplots):
     # Plot the y=x line
     axes.plot(min_max, min_max, lw=1, c='k', zorder=30)
     # Set the limits and aspect ratio
-    axes.set_xlim(min_max)
-    axes.set_ylim(min_max)
+    #axes.set_xlim(min_max)
+    #axes.set_ylim(min_max)
+    if plottype == 'DG':    
+        axes.set_xlim([-17,-5])
+        axes.set_ylim([-17,-5])
+    elif plottype == 'DDG':
+        axes.set_xlim([-10,10])
+        axes.set_ylim([-10,10])
     axes.set_aspect('equal', 'box')
     # Add labels
     if plottype == 'DDG':

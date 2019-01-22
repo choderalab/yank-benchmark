@@ -103,7 +103,7 @@ class TwoRestraintsPhaseFactory(AlchemicalPhaseFactory):
 
         # Modify the restraint force to be on only in the middle of the protocol.
         energy_function = restraint_force.getEnergyFunction().replace('lambda_restraints',
-                                                                      '4 * lambda_restraints * (1 - lambda_restraints)')
+                                                                      '4 * 4 * lambda_restraints * (1 - lambda_restraints)')
         restraint_force.setEnergyFunction(energy_function)
 
         # Update reference thermodynamic state with the new definition of the force.

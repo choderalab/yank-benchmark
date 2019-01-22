@@ -1,7 +1,7 @@
 options:
   minimize: yes
   verbose: yes
-  output_dir: sams
+  output_dir: sams-2
   temperature: 300*kelvin
   pressure: 1*atmosphere
   switch_experiment_interval: 1000
@@ -27,14 +27,14 @@ molecules:
 
 mcmc_moves:
     langevin:
-        type: MCDisplacementMove # Monte Carlo ligand displacement
-        type: MCRotationMove # Monte Carlo ligand rotation
+        #type: MCDisplacementMove # Monte Carlo ligand displacement
+        #type: MCRotationMove # Monte Carlo ligand rotation
         type: LangevinSplittingDynamicsMove
         timestep: 4.0*femtosecond
         collision_rate: 1.0/picosecond
-        reassign_velocities: no
+        reassign_velocities: yes
         splitting: 'V R O R V'
-        n_steps: 500
+        n_steps: 1250
         n_restart_attempts: 4
 
 samplers:
@@ -45,7 +45,7 @@ samplers:
         update_stages: two-stage
         flatness_threshold: 10.0
         number_of_iterations: 50000
-        gamma0: 10.0
+        gamma0: 5.0
 
 solvents:
   pme:
@@ -103,6 +103,6 @@ protocols:
 experiments:
   sampler: sams
   system: c-met-hinge
-  protocol: linear-20-40-protocol
+  protocol: dense-protocol
   restraint:
-    type: Harmonic
+    type: PeriodicTorsionBoresch

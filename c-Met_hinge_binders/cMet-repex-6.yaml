@@ -1,0 +1,77 @@
+# with 4x lambda
+options:
+  minimize: yes
+  verbose: yes
+  output_dir: repex-6
+  temperature: 300*kelvin
+  pressure: 1*atmosphere
+  switch_experiment_interval: 50
+  checkpoint_interval: 10
+  resume_setup: yes
+  resume_simulation: yes
+  processes_per_experiment: 1
+  hydrogen_mass: 3.0 * amu
+  alchemical_pme_treatment: exact
+
+molecules:
+  c-Met-4r1y:
+    filepath: input/met_4r1y_mae_prot.pdb
+    strip_protons: yes 
+  single-hinge:
+    filepath: input/c-Met_bmcl_neutral_docked.sdf
+    select: all
+    openeye:
+      quacpac: am1-bcc
+    antechamber:
+      charge_method: null
+
+mcmc_moves:
+    langevin:
+        #type: MCDisplacementMove # Monte Carlo ligand displacement
+        #type: MCRotationMove # Monte Carlo ligand rotation
+        type: LangevinSplittingDynamicsMove
+        timestep: 4.0*femtosecond
+        collision_rate: 1.0/picosecond
+        reassign_velocities: yes
+        splitting: 'V R O R V'
+        n_steps: 1000
+        n_restart_attempts: 4
+
+samplers:
+    sams:
+        type: ReplicaExchangeSampler
+        mcmc_moves: langevin
+        number_of_iterations: 5000
+
+solvents:
+  pme:
+    nonbonded_method: PME
+    switch_distance: 9*angstroms
+    nonbonded_cutoff: 10*angstroms
+    ewald_error_tolerance: 1.0e-4
+    clearance: 9*angstroms
+    positive_ion: Na+
+    negative_ion: Cl-
+    solvent_model: tip3p
+
+systems:
+  c-met-hinge:
+    receptor: c-Met-4r1y
+    ligand: single-hinge
+    solvent: pme
+    leap:
+      parameters: [leaprc.protein.ff14SB, leaprc.gaff2, leaprc.water.tip3p]
+
+protocols:
+  auto:
+    complex:
+      alchemical_path: auto
+    solvent:
+      alchemical_path: auto 
+
+experiments:
+  sampler: sams
+  system: c-met-hinge
+  protocol: auto
+  restraint:
+    type: Harmonic
