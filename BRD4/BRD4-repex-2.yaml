@@ -1,0 +1,74 @@
+options:
+  minimize: yes
+  verbose: yes
+  output_dir: repex-rmsd-2
+  temperature: 300*kelvin
+  pressure: 1*atmosphere
+  switch_experiment_interval: 20
+  resume_setup: yes
+  resume_simulation: yes
+  processes_per_experiment: 1
+  hydrogen_mass: 3.0 * amu
+  checkpoint_interval: 10
+  alchemical_pme_treatment: exact 
+
+molecules:
+  BRD4:
+    filepath: input/BET_prot.pdb
+    strip_protons: yes 
+  ligands:
+    filepath: input/all-ligands.mol2
+    select: all
+    openeye:
+      quacpac: am1-bcc
+    antechamber:
+      charge_method: null
+
+mcmc_moves:
+    langevin:
+        type: LangevinSplittingDynamicsMove
+        timestep: 4.0*femtosecond
+        splitting: 'V R O R V'
+        reassign_velocities: yes
+        n_steps: 500
+        n_restart_attempts: 4
+
+samplers:
+    repex:
+        type: ReplicaExchangeSampler
+        mcmc_moves: langevin
+        number_of_iterations: 2000
+
+solvents:
+  pme:
+    nonbonded_method: PME
+    switch_distance: 9*angstroms
+    nonbonded_cutoff: 10*angstroms
+    ewald_error_tolerance: 1.0e-4
+    clearance: 9*angstroms
+    positive_ion: Na+
+    negative_ion: Cl-
+    solvent_model: tip3p
+
+systems:
+  BRD4-complex:
+    receptor: BRD4
+    ligand: ligands
+    solvent: pme
+    leap:
+      parameters: [leaprc.protein.ff14SB, leaprc.gaff2, leaprc.water.tip3p]
+
+
+protocols:
+  auto-protocol:
+    complex:
+      alchemical_path: auto
+    solvent:
+      alchemical_path: auto
+
+experiments:
+  sampler: repex
+  system: BRD4-complex
+  protocol: auto-protocol
+  restraint:
+    type: PeriodicTorsionBoresch
