@@ -8,9 +8,9 @@ options:
   anisotropic_dispersion_cutoff: auto
 
   minimize: yes
-  number_of_iterations: 5000
-  nsteps_per_iteration: 500
-  timestep: 2*femtoseconds
+  defaul_number_of_iterations: 5000
+  defaul_nsteps_per_iteration: 500
+  defaul_timestep: 2*femtoseconds
   checkpoint_interval: 1000
 
   annihilate_electrostatics: yes
